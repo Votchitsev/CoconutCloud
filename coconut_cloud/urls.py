@@ -18,9 +18,11 @@ from django.urls import path, include
 from rest_framework.authtoken import views
 
 from coconut_cloud.cloud.views.admin_interface_views.user_view import RegistrUserView
+from coconut_cloud.cloud.views.file_views import FileView
 
 urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
-    path('registr/', RegistrUserView.as_view(), name = 'registr')
+    path('registr/', RegistrUserView.as_view(), name = 'registr'),
+    path('files/', FileView.as_view(), name = 'file')
 ]
