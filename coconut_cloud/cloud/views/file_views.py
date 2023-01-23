@@ -19,7 +19,7 @@ class FileView(CreateAPIView):
         data = {}
 
         if serializer.is_valid():
-            serializer.create(user_id = request.user.id)
+            serializer.create(user_id = request.user.id, file = request.FILES['file'])
 
             data['response'] = True
             

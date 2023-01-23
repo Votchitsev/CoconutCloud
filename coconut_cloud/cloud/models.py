@@ -51,3 +51,5 @@ class File(models.Model):
     storage_file_name = models.CharField(unique = True, max_length = 50)
     native_file_name = models.CharField(unique = True, max_length = 50)
     public_download_id = models.CharField(unique = True, max_length=50)
+
+    file = models.FileField(upload_to='storage/', blank=True)
