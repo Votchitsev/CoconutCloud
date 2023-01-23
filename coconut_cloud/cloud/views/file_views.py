@@ -5,10 +5,13 @@ from rest_framework.parsers import JSONParser
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from coconut_cloud.cloud.serializers.file_serializer import FileSerializer
 
 
 class FileView(CreateAPIView):
+
+    permission_classes = [IsAuthenticated]
     
     def post(self, request):
         serializer = FileSerializer(data = request.data)
