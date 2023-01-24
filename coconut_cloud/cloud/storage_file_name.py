@@ -1,6 +1,4 @@
-import random
-import string
-
+from coconut_cloud.cloud.random_string import get_random_string
 
 
 def get_ext(file_name):
@@ -8,9 +6,8 @@ def get_ext(file_name):
 
 
 def generate_storage_file_name(l, file_name):
-    letters = string.ascii_lowercase
-    random_string = ''.join(random.choice(letters) for i in range(l))
-    random_string += f".{get_ext(file_name)}"
+    result = get_random_string(l)
+    result += f".{get_ext(file_name)}"
     
-    return random_string
+    return result
     
