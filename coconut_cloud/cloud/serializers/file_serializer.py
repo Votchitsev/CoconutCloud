@@ -1,7 +1,8 @@
+import base64
+
 from rest_framework import serializers
 from coconut_cloud.cloud.models import File, User
-
-import base64
+from coconut_cloud.cloud.storage_file_name import generate_storage_file_name
 
 
 class FileSerializer(serializers.ModelSerializer):
@@ -14,9 +15,13 @@ class FileSerializer(serializers.ModelSerializer):
 
         user = User.objects.filter(id = kwargs['user_id']).first()
 
+        storage_file_name = generate_storage_file_name(10, self.validated_data['file'].name)
+
+        self.validated_data['file'].name = storage_file_name
+
         data = {
             'user_id': user,
-            'storage_file_name': 'generated name',
+            'storage_file_name': storage_file_name,
             'native_file_name': self.validated_data['native_file_name'],
             'public_download_id': 'generated id',
             'file': self.validated_data['file'],
