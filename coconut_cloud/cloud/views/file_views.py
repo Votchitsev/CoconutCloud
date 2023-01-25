@@ -1,5 +1,7 @@
 from coconut_cloud.cloud.models import FileModel
+from django.http import FileResponse
 from rest_framework.generics import CreateAPIView
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -31,3 +33,12 @@ class FileView(CreateAPIView):
         data = serializer.errors
 
         return Response(data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_file(request, id):
+    file = FileModel.objects.filter(user_id = request.user.id).all().filter(id = id).first()
+
+    return FileResponse(file.file, status.HTTP_200_OK)
+
