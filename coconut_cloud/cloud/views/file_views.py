@@ -1,7 +1,4 @@
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from coconut_cloud.cloud.models import File
-from rest_framework.parsers import JSONParser
+from coconut_cloud.cloud.models import FileModel
 from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,6 +9,12 @@ from coconut_cloud.cloud.serializers.file_serializer import FileSerializer
 class FileView(CreateAPIView):
 
     permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        files = FileModel.objects.all()
+        serializer = FileSerializer(files, many = True)
+
+        return Response(serializer.data)
     
     def post(self, request):
         serializer = FileSerializer(data = request.data)

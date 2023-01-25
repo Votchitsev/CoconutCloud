@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.core.files.storage import FileSystemStorage
+
+
+file_system = FileSystemStorage(location = 'storage')
 
 
 class UserManager(BaseUserManager):
@@ -45,11 +49,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class File(models.Model):
+class FileModel(models.Model):
     id = models.AutoField(primary_key = True, unique = True)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
     storage_file_name = models.CharField(unique = True, max_length = 50)
     native_file_name = models.CharField(unique = True, max_length = 50)
     public_download_id = models.CharField(unique = True, max_length=50)
-
-    file = models.FileField(upload_to='storage/', blank=True)
+    file = models.FileField(storage = file_system, blank = True)
