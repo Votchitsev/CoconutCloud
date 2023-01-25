@@ -29,3 +29,12 @@ class FileSerializer(serializers.ModelSerializer):
         }
         
         return FileModel.objects.create(**data)
+
+    def put(self, *args, **kwargs):
+
+        file = FileModel.objects.filter(user_id = kwargs['user_id']).all().filter(id = kwargs['id']).first()
+
+        if file:
+            file.native_file_name = kwargs['native_file_name']
+
+            return file.save()

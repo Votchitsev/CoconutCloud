@@ -40,6 +40,22 @@ class FileView(CreateAPIView):
 
         return Response(data)
 
+    def put(self, request):
+        serializer = FileSerializer(data = request.data)
+
+        data = {}
+
+        if serializer.is_valid():
+            serializer.put(user_id = request.user.id, id = request.data['id'], native_file_name = request.data['native_file_name'])
+
+            data['response'] = True
+
+            return Response(data)
+
+        data = serializer.errors
+        
+        return Response(data)
+
     def delete(self, request):
         deleted_file = FileModel.objects.filter(user_id = request.user.id).all().filter(id = int(request.query_params['id'])).first()
 
