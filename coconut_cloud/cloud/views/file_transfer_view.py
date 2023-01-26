@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import api_view
+from django.http import FileResponse
 
 from coconut_cloud.cloud.models import FileModel
 
@@ -28,3 +30,11 @@ class FileTransfer(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)
 
 
+@api_view(['GET'])
+def get_file(request, link):
+    file = FileModel.objects.filter(public_download_id = link).first()
+
+    if file:
+        return FileResponse(file.file, status.HTTP_200_OK)
+
+    return Response(status = status.HTTP_404_NOT_FOUND)
