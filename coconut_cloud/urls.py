@@ -19,13 +19,13 @@ from rest_framework.authtoken import views
 
 from coconut_cloud.cloud.views.admin_interface_views.user_view import RegistrUserView
 from coconut_cloud.cloud.views.file_views import FileView
-from coconut_cloud.cloud.views.file_transfer_view import FileTransfer, get_file
+from coconut_cloud.cloud.views.file_transfer_view import get_link, get_file
 
 urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
-    path('registr/', RegistrUserView.as_view(), name = 'registr'),
-    path('files/', FileView.as_view(), name = 'file'),
-    path('link/', FileTransfer.as_view(), name = 'file transfer'),
-    path('link/<str:link>/', get_file, name = 'get file with link'),
+    path('registr/', RegistrUserView.as_view(),),
+    path('files/', FileView.as_view()),
+    path('link/', get_link),
+    path('link/<str:link>/', get_file),
 ]
