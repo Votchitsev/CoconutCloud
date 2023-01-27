@@ -16,37 +16,37 @@ class FileView(CreateAPIView):
 
         if not request.query_params['id']:
             files = FileModel.objects.all()
-            serializer = FileSerializer(files, many = True)
+            serializer = FileSerializer(files, many=True)
 
             return Response(serializer.data)
         
-        file = FileModel.objects.filter(user_id = request.user.id).all().filter(id = request.query_params['id']).first()
+        file = FileModel.objects.filter(user_id=request.user.id).all().filter(id = request.query_params['id']).first()
 
         return FileResponse(file.file, status.HTTP_200_OK)
     
     def post(self, request):
-        serializer = FileSerializer(data = request.data)
+        serializer = FileSerializer(data=request.data)
 
         data = {}
 
         if serializer.is_valid():
-            serializer.create(user_id = request.user.id, file = request.FILES['file'])
+            serializer.create(user_id=request.user.id, file=request.FILES['file'])
 
             data['response'] = True
             
-            return Response(data, status = status.HTTP_200_OK) 
+            return Response(data, status=status.HTTP_200_OK) 
 
         data = serializer.errors
 
         return Response(data)
 
     def put(self, request):
-        serializer = FileSerializer(data = request.data)
+        serializer = FileSerializer(data=request.data)
 
         data = {}
 
         if serializer.is_valid():
-            serializer.put(user_id = request.user.id, id = request.data['id'], native_file_name = request.data['native_file_name'])
+            serializer.put(user_id=request.user.id, id=request.data['id'], native_file_name=request.data['native_file_name'])
 
             data['response'] = True
 
@@ -57,7 +57,7 @@ class FileView(CreateAPIView):
         return Response(data)
 
     def delete(self, request):
-        deleted_file = FileModel.objects.filter(user_id = request.user.id).all().filter(id = int(request.query_params['id'])).first()
+        deleted_file = FileModel.objects.filter(user_id=request.user.id).all().filter(id=int(request.query_params['id'])).first()
 
         if deleted_file:
             deleted_file.delete()

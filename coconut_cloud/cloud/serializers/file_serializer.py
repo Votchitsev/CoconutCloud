@@ -10,7 +10,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FileModel
-        fields = ['file']
+        fields = ['file', 'comment']
 
     def create(self, *args, **kwargs):
 
@@ -26,6 +26,8 @@ class FileSerializer(serializers.ModelSerializer):
             'user_id': user,
             'storage_file_name': file.name,
             'native_file_name': native_file_name,
+            'size': file.size,
+            'comment': self.validated_data['comment'],
             'public_download_id': generate_download_id(20),
             'file': file,
         }

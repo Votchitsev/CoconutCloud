@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.core.files.storage import FileSystemStorage
 
 
-file_system = FileSystemStorage(location = 'storage')
+file_system = FileSystemStorage(location='storage')
 
 
 class UserManager(BaseUserManager):
@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
 
-        user.save(using = self._db)
+        user.save(using=self._db)
 
         return user
     
@@ -30,15 +30,15 @@ class UserManager(BaseUserManager):
         return self._create_user(email, username, password)
 
     def create_superuser(self, email, username, password):
-        return self._create_user(email, username, password, is_staff = True, is_superuser = True)
+        return self._create_user(email, username, password, is_staff=True, is_superuser=True)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    id = models.AutoField(primary_key = True, unique = True)
-    username = models.CharField(max_length = 50, unique = True)
-    email = models.EmailField(max_length = 100, unique = True)
-    is_active = models.BooleanField(default = True)
-    is_staff = models.BooleanField(default = False)
+    id = models.AutoField(primary_key=True, unique=True)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -50,12 +50,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class FileModel(models.Model):
-    id = models.AutoField(primary_key = True, unique = True)
-    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-    storage_file_name = models.CharField(unique = True, max_length = 50)
-    native_file_name = models.CharField(max_length = 50)
-    public_download_id = models.CharField(unique = True, max_length=50)
-    file = models.FileField(storage = file_system, blank = True)
+    id = models.AutoField(primary_key=True, unique=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    storage_file_name = models.CharField(unique=True, max_length=50)
+    native_file_name = models.CharField(max_length=50)
+    size = models.IntegerField(null=True)
+    upload_date = models.DateField(auto_now_add=True, null=True)
+    last_download_date = models.DateField(null=True)
+    comment = models.TextField(max_length=100, null=True)
+    public_download_id = models.CharField(unique=True, max_length=50)
+    file = models.FileField(storage=file_system, blank=True)
 
     class Meta:
         unique_together = ('user_id', 'native_file_name')
