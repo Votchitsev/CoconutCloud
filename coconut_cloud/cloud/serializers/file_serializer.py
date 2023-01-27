@@ -18,7 +18,7 @@ class FileSerializer(serializers.ModelSerializer):
 
         file.name = generate_storage_file_name(file.name)
 
-        user = User.objects.filter(id = kwargs['user_id']).first()
+        user = User.objects.filter(id=kwargs['user_id']).first()
 
         data = {
             'user_id': user,
@@ -28,11 +28,21 @@ class FileSerializer(serializers.ModelSerializer):
             'file': file,
         }
         
-        return FileModel.objects.create(**data)
+        try:
+            file_model = FileModel.objects.create(**data)
+
+            return file_model
+
+        except Exception as e:
+            error = {
+                'message': ', '.join(e.args) if len(e.args) > 0 else 'Unknown Error'
+            }
+            raise serializers.ValidationError(error)
+
 
     def put(self, *args, **kwargs):
 
-        file = FileModel.objects.filter(user_id = kwargs['user_id']).all().filter(id = kwargs['id']).first()
+        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=kwargs['id']).first()
 
         if file:
             file.native_file_name = kwargs['native_file_name']
