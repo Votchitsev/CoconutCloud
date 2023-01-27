@@ -13,24 +13,24 @@ def get_link(request):
     user_id = request.user.id
     file_id = request.data['file_id']
     
-    file = FileModel.objects.filter(user_id = user_id).filter(id = file_id).first()
+    file = FileModel.objects.filter(user_id=user_id).filter(id=file_id).first()
     
     if file:
         data = {
             'link': file.public_download_id,
         }
 
-        return Response(data, status = status.HTTP_200_OK)
+        return Response(data, status=status.HTTP_200_OK)
 
-    return Response(status = status.HTTP_204_NO_CONTENT)
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['GET'])
 def get_file(request, link):
-    file = FileModel.objects.filter(public_download_id = link).first()
+    file = FileModel.objects.filter(public_download_id=link).first()
 
     if file:
 
-        return FileResponse(file.file, status.HTTP_200_OK, as_attachment=True)
+        return FileResponse(file.file, status.HTTP_200_OK, as_attachment=True, filename=file.native_file_name)
 
-    return Response(status = status.HTTP_404_NOT_FOUND)
+    return Response(status=status.HTTP_404_NOT_FOUND)

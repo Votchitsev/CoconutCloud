@@ -10,11 +10,13 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FileModel
-        fields = ['native_file_name', 'file']
+        fields = ['file']
 
     def create(self, *args, **kwargs):
 
         file = File(self.validated_data['file'])
+
+        native_file_name = file.name
 
         file.name = generate_storage_file_name(file.name)
 
@@ -23,7 +25,7 @@ class FileSerializer(serializers.ModelSerializer):
         data = {
             'user_id': user,
             'storage_file_name': file.name,
-            'native_file_name': self.validated_data['native_file_name'],
+            'native_file_name': native_file_name,
             'public_download_id': generate_download_id(20),
             'file': file,
         }
@@ -37,6 +39,7 @@ class FileSerializer(serializers.ModelSerializer):
             error = {
                 'message': ', '.join(e.args) if len(e.args) > 0 else 'Unknown Error'
             }
+            
             raise serializers.ValidationError(error)
 
 
