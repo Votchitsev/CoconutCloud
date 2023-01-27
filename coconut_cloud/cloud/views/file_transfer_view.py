@@ -30,6 +30,7 @@ def get_file(request, link):
     file = FileModel.objects.filter(public_download_id = link).first()
 
     if file:
-        return FileResponse(file.file, status.HTTP_200_OK)
+
+        return FileResponse(file.file, status.HTTP_200_OK, as_attachment=True)
 
     return Response(status = status.HTTP_404_NOT_FOUND)
