@@ -4,6 +4,7 @@ from rest_framework import serializers
 from coconut_cloud.cloud.models import FileModel, User
 from coconut_cloud.cloud.storage_file_name import generate_storage_file_name
 from coconut_cloud.cloud.download_id import generate_download_id
+from coconut_cloud.cloud.validators import putValidator
 
 
 class FileSerializer(serializers.ModelSerializer):
@@ -23,7 +24,7 @@ class FileSerializer(serializers.ModelSerializer):
         user = User.objects.filter(id=kwargs['user_id']).first()
 
         data = {
-            'user_id': user,
+            'user': user,
             'storage_file_name': file.name,
             'native_file_name': native_file_name,
             'size': file.size,
@@ -47,9 +48,12 @@ class FileSerializer(serializers.ModelSerializer):
 
     def put(self, *args, **kwargs):
 
-        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=kwargs['id']).first()
+        validated_data = putValidator(self.initial_data)
+
+        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=validated_data['id']).first()
 
         if file:
-            file.native_file_name = kwargs['native_file_name']
+            file.native_file_name = validated_data['native_file_name']
+            file.comment = validated_data['comment']
 
             return file.save()

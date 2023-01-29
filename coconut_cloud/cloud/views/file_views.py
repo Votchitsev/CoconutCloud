@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from datetime import date
 
 from coconut_cloud.cloud.serializers.file_serializer import FileSerializer
 from coconut_cloud.cloud.models import FileModel
@@ -14,15 +15,16 @@ class FileView(CreateAPIView):
 
     def get(self, request):
 
-        if not request.query_params['id']:
-            files = FileModel.objects.all()
-            serializer = FileSerializer(files, many=True)
-
-            return Response(serializer.data)
+        if 'id' not in request.query_params:
+            files = FileModel.objects.values('id', 'size', 'upload_date', 'last_download_date', 'comment')
+        
+            return Response(files)
         
         file = FileModel.objects.filter(user_id=request.user.id).all().filter(id = request.query_params['id']).first()
+        file.last_download_date = date.today()
+        file.save()
 
-        return FileResponse(file.file, status.HTTP_200_OK)
+        return FileResponse(file.file, status.HTTP_200_OK, as_attachment=True)
     
     def post(self, request):
         serializer = FileSerializer(data=request.data)
@@ -32,7 +34,9 @@ class FileView(CreateAPIView):
         if serializer.is_valid():
             serializer.create(user_id=request.user.id, file=request.FILES['file'])
 
-            data['response'] = True
+            data = {
+                'message': 'The file has been added to the storage',
+            }
             
             return Response(data, status=status.HTTP_200_OK) 
 
@@ -46,9 +50,13 @@ class FileView(CreateAPIView):
         data = {}
 
         if serializer.is_valid():
-            serializer.put(user_id=request.user.id, id=request.data['id'], native_file_name=request.data['native_file_name'])
+            serializer.put(
+                user_id=request.user.id,
+                )
 
-            data['response'] = True
+            data = {
+                'message': 'The file has been updated in the storage'
+            }
 
             return Response(data)
 
