@@ -19,4 +19,15 @@
 .header--menu-container {
   display: flex;
   justify-content: space-between;
+  justify-self: end;
+  width: 15%;
+  margin-left: auto;
+  color: #00bb9c;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.header--menu-container--item:hover {
+  color: white;
+  transition: all 500ms;
 }
