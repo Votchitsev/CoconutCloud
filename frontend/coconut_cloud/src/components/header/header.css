@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  width: 80%;
+  height: 70px;
+  background-color: black;
+  margin: 20px auto;
+  border-radius: 60px;
+  padding: 0 70px;
+  align-items: center;
+}
+
+.header--logo {
+  color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 900;
+  font-size: 2em;
+}
+
+.header--menu-container {
+  display: flex;
+  justify-content: space-between;
+}
