@@ -22,12 +22,12 @@
   justify-self: end;
   width: 15%;
   margin-left: auto;
-  color: #00bb9c;
+  color: white;
   font-size: 1.5em;
   cursor: pointer;
 }
 
 .header--menu-container--item:hover {
-  color: white;
+  color: #00bb9c;
   transition: all 500ms;
 }

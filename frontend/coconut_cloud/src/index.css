@@ -5,4 +5,9 @@ body {
   background-color: #f4e5cd;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700;900&display=swap');
