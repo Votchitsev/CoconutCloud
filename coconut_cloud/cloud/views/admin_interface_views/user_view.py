@@ -23,9 +23,9 @@ class RegistrUserView(CreateAPIView):
 
             data['response'] = True
 
-            return Response(data, status = status.HTTP_200_OK)
+            return Response(data, status=status.HTTP_200_OK)
         
         else:
             data = serializer.errors
 
-            return Response(data)
+            return Response(data, status=status.HTTP_403_FORBIDDEN)

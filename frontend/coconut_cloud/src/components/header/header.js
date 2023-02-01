@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 function Header (props) {
-  const isAuth = useSelector(state => state.auth.isAuth)
+  const isAuth = useSelector(state => state.auth.authToken)
+  const username = useSelector(state => state.auth.username)
 
   return (
     <section className="header">
@@ -15,7 +16,7 @@ function Header (props) {
               <div className='header--menu-container--item'>Sign in</div>
               <div className='header--menu-container--item'><Link to='/sign-up'>Sign up</Link></div>
             </>
-          : null
+          : <div>{username}</div>
       }</div>
     </section>
   )

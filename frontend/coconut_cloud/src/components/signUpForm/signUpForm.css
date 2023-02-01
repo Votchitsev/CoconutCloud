@@ -1,4 +1,5 @@
 .sign-up-form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,5 +42,19 @@
 
 .sign-up-form > input[type="submit"]:hover {
   background-color: #029980;
+  transition: all 500ms;
+}
+
+.close {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.close:hover {
+  rotate: 45deg;
   transition: all 500ms;
 }

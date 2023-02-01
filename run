@@ -1,0 +1,11 @@
+#/bin/bash
+
+source env/bin/activate
+
+cd frontend/coconut_cloud/
+
+npm start &
+
+cd ../../
+
+python3 manage.py runserver 3001
