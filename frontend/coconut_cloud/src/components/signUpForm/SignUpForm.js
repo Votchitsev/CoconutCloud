@@ -47,7 +47,7 @@ function SignUpForm ({ setCookie }) {
             username: body.username
           })
         )
-        setCookie('token', response.auth_token)
+        setCookie('token', response.auth_token, { 'max-age': 31536000 })
         setCookie('username', body.username)
         navigate('/')
       })
