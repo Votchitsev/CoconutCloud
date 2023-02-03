@@ -14,10 +14,14 @@ const authSlice = createSlice(
       },
       logout (state) {
         state.authToken = null
+      },
+      getFromCookie (state, action) {
+        state.authToken = action.payload.token
+        state.username = action.payload.username
       }
     }
   }
 )
 
-export const { login } = authSlice.actions
+export const { login, logout, getFromCookie } = authSlice.actions
 export default authSlice.reducer

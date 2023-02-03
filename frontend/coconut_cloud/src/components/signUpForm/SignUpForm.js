@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import apiRequest from '../../apiRequest'
 import './signUpForm.css'
 import img from './icons8-close.svg'
-import { useDispatch } from 'react-redux'
 import { login } from '../../reduxStore/slices/authSlice'
 
-function SignUpForm (props) {
+function SignUpForm ({ setCookie }) {
   const email = useRef()
   const username = useRef()
   const password = useRef()
@@ -46,6 +47,8 @@ function SignUpForm (props) {
             username: body.username
           })
         )
+        setCookie('token', response.auth_token)
+        setCookie('username', body.username)
         navigate('/')
       })
   }
@@ -61,6 +64,10 @@ function SignUpForm (props) {
       <button className='close'><Link to='/'><img src={img} /></Link></button>
     </form>
   )
+}
+
+SignUpForm.propTypes = {
+  setCookie: PropTypes.any
 }
 
 export default SignUpForm
