@@ -1,9 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import Username from './Username'
 import './header.css'
 
-function Header () {
+function Header ({ removeCookie }) {
   const isAuth = useSelector(state => state.auth.authToken)
   const username = useSelector(state => state.auth.username)
 
@@ -16,10 +18,14 @@ function Header () {
               <div className='header--menu-container--item'>Sign in</div>
               <div className='header--menu-container--item'><Link to='/sign-up'>Sign up</Link></div>
             </>
-          : <div>{username}</div>
+          : <Username username={ username } removeCookie={ removeCookie }/>
       }</div>
     </section>
   )
+}
+
+Header.propTypes = {
+  removeCookie: PropTypes.any
 }
 
 export default Header

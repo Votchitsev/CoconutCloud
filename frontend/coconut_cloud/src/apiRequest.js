@@ -1,6 +1,6 @@
 import BASE_URL from './config'
 
-function apiRequest (method, url, body) {
+function apiRequest (method, url, body = {}, token = null) {
   let response
 
   if (method === 'POST') {
@@ -8,7 +8,8 @@ function apiRequest (method, url, body) {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
-        'content-type': 'Application/json'
+        'content-type': 'Application/json',
+        Authorization: `Token ${token}`
       }
     })
   }

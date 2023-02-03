@@ -9,7 +9,7 @@ import SignUpForm from './components/signUpForm/SignUpForm'
 import { getFromCookie } from './reduxStore/slices/authSlice'
 
 function App () {
-  const [cookie, setCookie] = useCookies(['token', 'username'])
+  const [cookie, setCookie, removeCookie] = useCookies(['token', 'username'])
   const dispatch = useDispatch()
 
   dispatch(
@@ -21,7 +21,7 @@ function App () {
 
   return (
       <Router>
-        <Header cookie={ cookie }/>
+        <Header cookie={ cookie } removeCookie={ removeCookie }/>
         <Routes>
           <Route path='/sign-up' element ={<SignUpForm setCookie={ setCookie }/>} />
         </Routes>

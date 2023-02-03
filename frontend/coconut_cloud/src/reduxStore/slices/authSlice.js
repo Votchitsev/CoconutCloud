@@ -14,6 +14,7 @@ const authSlice = createSlice(
       },
       logout (state) {
         state.authToken = null
+        state.username = null
       },
       getFromCookie (state, action) {
         state.authToken = action.payload.token
