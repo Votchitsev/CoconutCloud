@@ -24,8 +24,8 @@ function App () {
     <Router>
       <Header cookie={ cookie } removeCookie={ removeCookie }/>
       <Routes>
-        <Route path='/sign-up' element={<SignUpForm setCookie={ setCookie }/>} />
-        <Route path='/sign-in' element={<SignInForm />} />
+        <Route path='/sign-up' element={<SignUpForm />} />
+        <Route path='/sign-in' element={<SignInForm setCookie={ setCookie }/>} />
       </Routes>
     </Router>
   )

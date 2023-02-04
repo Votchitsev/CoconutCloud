@@ -1,4 +1,6 @@
-const request = async ([url, method, data, token]) => {
+import useSWR from 'swr'
+
+const fetcher = async ([url, method, body, token]) => {
   try {
     const response = await fetch(url, {
       method,
@@ -6,7 +8,7 @@ const request = async ([url, method, data, token]) => {
         'Content-Type': 'application/json',
         Authorization: token ? `Token ${token}` : null
       },
-      body: data ? JSON.stringify(data) : null
+      body: body ? JSON.stringify(body) : null
     })
     const json = await response.json()
     return json
@@ -15,4 +17,14 @@ const request = async ([url, method, data, token]) => {
   }
 }
 
-export default request
+const useRequest = (args) => {
+  const { data, error, isLoading } = useSWR(!args ? null : [...args], fetcher)
+
+  return {
+    data,
+    error,
+    isLoading
+  }
+}
+
+export default useRequest

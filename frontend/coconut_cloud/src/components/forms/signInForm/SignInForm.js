@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
-import img from '../icons8-close.svg'
 import { Link, useNavigate } from 'react-router-dom'
-import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import { login } from '../../../reduxStore/slices/authSlice'
-import request from '../../../request'
+import useRequest from '../../../request'
+import BASE_URL from '../../../config'
 import '../signUpForm.css'
+import img from '../icons8-close.svg'
 
-function SignInForm () {
+function SignInForm ({ setCookie }) {
   const email = useRef()
   const password = useRef()
 
@@ -17,25 +18,25 @@ function SignInForm () {
 
   const navigate = useNavigate()
 
-  const { data } = useSWR(
+  const { data } = useRequest(
     !sendRequest
       ? null
-      : ['http://127.0.0.1:3001/auth/token/login', 'POST', {
+      : [BASE_URL + '/auth/token/login', 'POST', {
           email: email.current.value,
           password: password.current.value
-        }], request)
+        }])
 
   useEffect(() => {
     if (data) {
-      if (data) {
-        dispatch(
-          login({
-            token: data.auth_token,
-            username: 'test_username'
-          })
-        )
-        navigate('/')
-      }
+      dispatch(
+        login({
+          token: data.auth_token,
+          username: 'test_username'
+        })
+      )
+      setCookie('token', data.auth_token)
+      setCookie('username', 'test_username')
+      navigate('/')
     }
   }, [data])
 
@@ -53,6 +54,10 @@ function SignInForm () {
     <button className='close'><Link to='/'><img src={img} /></Link></button>
   </form>
   )
+}
+
+SignInForm.propTypes = {
+  setCookie: PropTypes.any
 }
 
 export default SignInForm

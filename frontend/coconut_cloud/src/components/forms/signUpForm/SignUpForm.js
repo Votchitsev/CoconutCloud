@@ -1,13 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import PropTypes from 'prop-types'
-import apiRequest from '../../../apiRequest'
+import BASE_URL from '../../../config'
+import useRequest from '../../../request'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
-import { login } from '../../../reduxStore/slices/authSlice'
 
-function SignUpForm ({ setCookie }) {
+function SignUpForm () {
   const email = useRef()
   const username = useRef()
   const password = useRef()
@@ -15,42 +13,28 @@ function SignUpForm ({ setCookie }) {
 
   const navigate = useNavigate()
 
-  const dispatch = useDispatch()
+  const [sendPostRequest, setSendRequest] = useState(false)
+
+  const { data } = useRequest(
+    !sendPostRequest
+      ? null
+      : [BASE_URL + 'registr/', 'POST', {
+          email: email.current.value,
+          username: username.current.value,
+          password: password.current.value,
+          password2: password2.current.value
+        }]
+  )
+
+  useEffect(() => {
+    if (data && data.response) {
+      navigate('/sign-in/')
+    }
+  }, [data])
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-
-    const body = {
-      email: email.current.value,
-      username: username.current.value,
-      password: password.current.value,
-      password2: password2.current.value
-    }
-
-    apiRequest('POST', 'registr/', body)
-      .then(response => {
-        if (!response.ok) {
-          navigate('/404')
-          return
-        }
-        return response.json()
-      })
-      .then(_ => apiRequest('POST', 'auth/token/login', {
-        password: body.password,
-        email: body.email
-      }))
-      .then(response => response.json())
-      .then(response => {
-        dispatch(
-          login({
-            token: response.auth_token,
-            username: body.username
-          })
-        )
-        setCookie('token', response.auth_token, { 'max-age': 31536000 })
-        setCookie('username', body.username)
-        navigate('/')
-      })
+    setSendRequest(true)
   }
 
   return (
@@ -64,10 +48,6 @@ function SignUpForm ({ setCookie }) {
       <button className='close'><Link to='/'><img src={img} /></Link></button>
     </form>
   )
-}
-
-SignUpForm.propTypes = {
-  setCookie: PropTypes.any
 }
 
 export default SignUpForm

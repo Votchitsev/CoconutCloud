@@ -1,15 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import apiRequest from '../../apiRequest'
 import { logout } from '../../reduxStore/slices/authSlice'
 import { useNavigate } from 'react-router-dom'
+import useRequest from '../../request'
+import BASE_URL from '../../config'
 
 function Username ({ username, removeCookie }) {
   const [logoutButton, setLogoutButton] = useState(false)
+  const [sendRequest, setSendRequest] = useState(false)
   const token = useSelector(state => state.auth.authToken)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const { data } = useRequest(
+    !sendRequest
+      ? null
+      : [BASE_URL + 'auth/token/logout', 'POST', null, token]
+  )
+
+  useEffect(() => {
+    if (data) {
+      dispatch(logout())
+      removeCookie('token')
+      removeCookie('username')
+      navigate('/')
+    }
+  })
 
   const onMouseEnterHandler = () => {
     setLogoutButton(true)
@@ -20,16 +37,7 @@ function Username ({ username, removeCookie }) {
   }
 
   const onClickHandler = () => {
-    apiRequest('POST', 'auth/token/logout', null, token)
-      .then(response => {
-        if (response.ok) {
-          dispatch(logout())
-          removeCookie('token')
-          removeCookie('username')
-          return
-        }
-        navigate('/404')
-      })
+    setSendRequest(true)
   }
 
   return (
