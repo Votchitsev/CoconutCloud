@@ -1,4 +1,4 @@
-.sign-up-form {
+.form {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -13,11 +13,11 @@
   translate: -50% -50%;
 }
 
-.sign-up-form--title {
+.form--title {
   font-size: 2em;
 }
 
-.sign-up-form > input {
+.form > input {
   background-color: #d8c3a3;
   height: 3em;
   width: 70%;
@@ -28,19 +28,19 @@
   font-size: 1em;
 }
 
-.sign-up-form > input:focus {
+.form > input:focus {
   border: none;
   outline-color: #00bb9c;
 }
 
-.sign-up-form > input[type="submit"] {
+.form > input[type="submit"] {
   background-color: #00bb9c;
   width: 50%;
   cursor: pointer;
   margin-top: 60px;
 }
 
-.sign-up-form > input[type="submit"]:hover {
+.form > input[type="submit"]:hover {
   background-color: #029980;
   transition: all 500ms;
 }

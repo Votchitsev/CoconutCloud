@@ -40,6 +40,7 @@ function Username ({ username, removeCookie }) {
       >{'Log out'}</div>
       : <div
       onMouseEnter={onMouseEnterHandler}
+      onMouseLeave={onMouseLeaveHandler}
       >{ username }</div>
   )
 }

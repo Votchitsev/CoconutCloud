@@ -15,7 +15,7 @@ function Header ({ removeCookie }) {
       <div className='header--menu-container'>{
         !isAuth
           ? <>
-              <div className='header--menu-container--item'>Sign in</div>
+              <div className='header--menu-container--item'><Link to='/sign-in'>Sign in</Link></div>
               <div className='header--menu-container--item'><Link to='/sign-up'>Sign up</Link></div>
             </>
           : <Username username={ username } removeCookie={ removeCookie }/>

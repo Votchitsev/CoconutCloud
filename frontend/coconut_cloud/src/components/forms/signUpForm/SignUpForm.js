@@ -2,10 +2,10 @@ import React, { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
-import apiRequest from '../../apiRequest'
-import './signUpForm.css'
-import img from './icons8-close.svg'
-import { login } from '../../reduxStore/slices/authSlice'
+import apiRequest from '../../../apiRequest'
+import '../signUpForm.css'
+import img from '../icons8-close.svg'
+import { login } from '../../../reduxStore/slices/authSlice'
 
 function SignUpForm ({ setCookie }) {
   const email = useRef()
@@ -54,8 +54,8 @@ function SignUpForm ({ setCookie }) {
   }
 
   return (
-    <form className="sign-up-form" onSubmit={onSubmitHandler}>
-      <h2 className='sign-up-form--title'>Sign Up</h2>
+    <form className="form" onSubmit={onSubmitHandler}>
+      <h2 className='form--title'>Sign Up</h2>
       <input type='email' placeholder='email' ref={email} required></input>
       <input type='text' placeholder='username' ref={username} required></input>
       <input type='text' placeholder='password' ref={password} required></input>
