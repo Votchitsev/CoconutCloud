@@ -4,16 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import { login } from '../../../reduxStore/slices/authSlice'
+import request from '../../../request'
 import '../signUpForm.css'
-
-const fetcher = ([url, method, data]) => fetch(url, {
-  method,
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-}).then(response => response.json())
-  .then(json => json)
 
 function SignInForm () {
   const email = useRef()
@@ -31,7 +23,7 @@ function SignInForm () {
       : ['http://127.0.0.1:3001/auth/token/login', 'POST', {
           email: email.current.value,
           password: password.current.value
-        }], fetcher)
+        }], request)
 
   useEffect(() => {
     if (data) {
