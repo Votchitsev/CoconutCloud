@@ -11,11 +11,9 @@ import img from '../icons8-close.svg'
 function SignInForm ({ setCookie }) {
   const email = useRef()
   const password = useRef()
-
   const [sendRequest, setSendRequest] = useState(false)
-
+  const [error, setError] = useState()
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
   const { data } = useRequest(
@@ -28,6 +26,10 @@ function SignInForm ({ setCookie }) {
 
   useEffect(() => {
     if (data) {
+      if (data.non_field_errors) {
+        setError(data.non_field_errors[0])
+        return
+      }
       dispatch(
         login({
           token: data.auth_token,
@@ -51,6 +53,7 @@ function SignInForm ({ setCookie }) {
     <input type='email' ref={ email } placeholder='email' required></input>
     <input type='password' ref={ password }placeholder='password' required></input>
     <input type='submit' value='OK' required></input>
+    <span>{error}</span>
     <button className='close'><Link to='/'><img src={img} /></Link></button>
   </form>
   )

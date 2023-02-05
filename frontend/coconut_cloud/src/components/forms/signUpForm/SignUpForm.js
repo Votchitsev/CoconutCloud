@@ -14,6 +14,7 @@ function SignUpForm () {
   const navigate = useNavigate()
 
   const [sendPostRequest, setSendRequest] = useState(false)
+  const [err, setError] = useState()
 
   const { data } = useRequest(
     !sendPostRequest
@@ -27,7 +28,13 @@ function SignUpForm () {
   )
 
   useEffect(() => {
-    if (data && data.response) {
+    if (data) {
+      if (!data.ok) {
+        data.ok = null
+        setError(Object.values(data))
+        setSendRequest(false)
+        return
+      }
       navigate('/sign-in/')
     }
   }, [data])
@@ -42,9 +49,10 @@ function SignUpForm () {
       <h2 className='form--title'>Sign Up</h2>
       <input type='email' placeholder='email' ref={email} required></input>
       <input type='text' placeholder='username' ref={username} required></input>
-      <input type='text' placeholder='password' ref={password} required></input>
-      <input type='text' placeholder='repeat password' ref={password2} required></input>
+      <input type='password' placeholder='password' ref={password} required></input>
+      <input type='password' placeholder='repeat password' ref={password2} required></input>
       <input type='submit' value='OK' required></input>
+          { err ? err.map(a => <span key={err.indexOf(a)} >{ a }</span>) : null }
       <button className='close'><Link to='/'><img src={img} /></Link></button>
     </form>
   )

@@ -11,6 +11,7 @@ const fetcher = async ([url, method, body, token]) => {
       body: body ? JSON.stringify(body) : null
     })
     const json = await response.json()
+    json.ok = response.ok
     return json
   } catch (error) {
     return error
