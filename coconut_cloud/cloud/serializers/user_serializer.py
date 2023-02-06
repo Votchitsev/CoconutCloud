@@ -7,12 +7,14 @@ class RegistrUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password', 'password2']
+        fields = ['email', 'username', 'first_name', 'last_name', 'password', 'password2']
 
     def save(self, *args, **kwargs):
         user = User(
             email = self.validated_data['email'],
-            username = self.validated_data['username']
+            username = self.validated_data['username'],
+            first_name = self.validated_data['first_name'],
+            last_name = self.validated_data['last_name']
         )
 
         password = self.validated_data['password']
