@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import BASE_URL from '../../../config'
 import useRequest from '../../../request'
+import { validateUsername, validatePassword } from './validateForm'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
@@ -19,19 +20,6 @@ function SignUpForm () {
   const [page, setPage] = useState(1)
   const [formData, setFormData] = useState({})
   const [err, setError] = useState()
-
-  // const { data } = useRequest(
-  //   !sendPostRequest
-  //     ? null
-  //     : [BASE_URL + 'registr/', 'POST', {
-  //         email: email.current.value,
-  //         username: username.current.value,
-  //         password: password.current.value,
-  //         password2: password2.current.value,
-  //         first_name: firstName ? firstName.current.value : null,
-  //         last_name: lastName ? lastName.current.value : null
-  //       }]
-  // )
 
   const { data } = useRequest(
     !sendPostRequest
@@ -54,12 +42,26 @@ function SignUpForm () {
   const onSubmitHandler = (e) => {
     e.preventDefault()
     if (page === 1) {
+      const usernameIsValid = validateUsername(username.current.value)
+      const passwordIsValid = validatePassword(password.current.value)
+
+      if (!usernameIsValid.ok) {
+        setError([usernameIsValid.message])
+        return
+      }
+
+      if (!passwordIsValid.ok) {
+        setError([passwordIsValid.message])
+        return
+      }
+
       setFormData({
         email: email.current.value,
         username: username.current.value,
         password: password.current.value,
         password2: password2.current.value
       })
+      setError()
       setPage(2)
       email.current.value = ''
       username.current.value = ''

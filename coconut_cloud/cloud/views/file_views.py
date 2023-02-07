@@ -56,13 +56,13 @@ class FileView(APIView):
 
         return Response(data)
 
-    def put(self, request):
+    def patch(self, request):
         serializer = FileSerializer(data=request.data)
 
         data = {}
 
         if serializer.is_valid():
-            serializer.put(
+            serializer.patch(
                 user_id=request.user.id,
                 )
 

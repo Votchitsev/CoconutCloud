@@ -1,10 +1,10 @@
 from django.core.files import File
-
 from rest_framework import serializers
+
 from coconut_cloud.cloud.models import FileModel, User
 from coconut_cloud.cloud.storage_file_name import generate_storage_file_name
 from coconut_cloud.cloud.download_id import generate_download_id
-from coconut_cloud.cloud.validators import putValidator
+from coconut_cloud.cloud.validators import patchValidator
 
 
 class FileSerializer(serializers.ModelSerializer):
@@ -13,7 +13,7 @@ class FileSerializer(serializers.ModelSerializer):
         model = FileModel
         fields = ['file', 'comment']
 
-    def create(self, *args, **kwargs):
+    def create(self, **kwargs):
 
         file = File(self.validated_data['file'])
 
@@ -46,9 +46,9 @@ class FileSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(error)
 
 
-    def put(self, *args, **kwargs):
+    def patch(self, **kwargs):
 
-        validated_data = putValidator(self.initial_data)
+        validated_data = patchValidator(self.initial_data)
 
         file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=validated_data['id']).first()
 

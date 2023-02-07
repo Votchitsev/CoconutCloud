@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from coconut_cloud.cloud.models import User
 
 
@@ -9,7 +10,7 @@ class RegistrUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['email', 'username', 'first_name', 'last_name', 'password', 'password2']
 
-    def save(self, *args, **kwargs):
+    def save(self):
         user = User(
             email = self.validated_data['email'],
             username = self.validated_data['username'],

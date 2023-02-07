@@ -43,10 +43,12 @@ function Username ({ username, removeCookie }) {
   return (
     logoutButton
       ? <div
+      className='header--logout-btn'
       onMouseLeave={onMouseLeaveHandler}
       onClick={onClickHandler}
       >{'Log out'}</div>
       : <div
+      className='header--logout-btn'
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
       >{ username }</div>

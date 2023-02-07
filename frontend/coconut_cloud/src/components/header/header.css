@@ -31,3 +31,7 @@
   color: #00bb9c;
   transition: all 500ms;
 }
+
+.header--logout-btn {
+  width: 100%;
+}

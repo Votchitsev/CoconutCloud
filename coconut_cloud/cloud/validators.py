@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-def putValidator(data):
+def patchValidator(data):
 
     if 'id' not in data:
         raise serializers.ValidationError({

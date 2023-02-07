@@ -2,6 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
+
 from coconut_cloud.cloud.models import User
 from coconut_cloud.cloud.serializers.user_serializer import RegistrUserSerializer
 
@@ -13,7 +14,7 @@ class RegistrUserView(CreateAPIView):
 
     permission_classes = [AllowAny]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = RegistrUserSerializer(data = request.data)
 
         data = {}
@@ -28,4 +29,4 @@ class RegistrUserView(CreateAPIView):
         else:
             data = serializer.errors
 
-            return Response(data, status=status.HTTP_403_FORBIDDEN)
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)

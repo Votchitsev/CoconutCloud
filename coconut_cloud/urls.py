@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
 
-from coconut_cloud.cloud.views.admin_interface_views.user_view import RegistrUserView
+from coconut_cloud.cloud.views.user_view import RegistrUserView
 from coconut_cloud.cloud.views.file_views import FileView
 from coconut_cloud.cloud.views.file_transfer_view import get_link, get_file
 

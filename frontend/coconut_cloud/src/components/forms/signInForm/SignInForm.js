@@ -49,13 +49,13 @@ function SignInForm ({ setCookie }) {
 
   return (
     <form className="form" onSubmit={ onSubmitHandler }>
-    <h2 className='form--title'>Sign In</h2>
-    <input type='email' ref={ email } placeholder='email' required></input>
-    <input type='password' ref={ password }placeholder='password' required></input>
-    <input type='submit' value='OK' required></input>
-    <span>{error}</span>
-    <button className='close'><Link to='/'><img src={img} /></Link></button>
-  </form>
+      <h2 className='form--title'>Sign In</h2>
+      <input type='email' ref={ email } placeholder='email' required></input>
+      <input type='password' ref={ password }placeholder='password' required></input>
+      <input type='submit' value='OK' required></input>
+      <span>{error}</span>
+      <button className='close'><Link to='/'><img src={img} /></Link></button>
+    </form>
   )
 }
 
