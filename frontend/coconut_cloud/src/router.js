@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie'
 import Header from './components/header/header'
 import SignUpForm from './components/forms/signUpForm/SignUpForm'
 import SignInForm from './components/forms/signInForm/SignInForm'
+import AdminPanel from './components/adminPanel/AdminPanel'
 import { getFromCookie } from './reduxStore/slices/authSlice'
 
 function App () {
@@ -26,6 +27,7 @@ function App () {
       <Routes>
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm setCookie={ setCookie }/>} />
+        <Route path='/admin' element={<AdminPanel />} />
       </Routes>
     </Router>
   )
