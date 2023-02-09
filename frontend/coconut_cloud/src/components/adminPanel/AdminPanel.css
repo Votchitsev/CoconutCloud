@@ -1,0 +1,12 @@
+.admin-panel--access-denied {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.admin-panel--access-denied > .content {
+  font-size: 5em;
+  font-weight: bold;
+  color: #00bb9c;
+}
