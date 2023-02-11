@@ -87,6 +87,10 @@ REST_FRAMEWORK = {
 DJOSER = {
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': False,
+    'SERIALIZERS': {
+        'user': 'coconut_cloud.cloud.serializers.user_serializer.UserSerializer',
+        'current_user': 'coconut_cloud.cloud.serializers.user_serializer.UserSerializer',
+    }
 }
 
 

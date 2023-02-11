@@ -10,3 +10,18 @@
   font-weight: bold;
   color: #00bb9c;
 }
+
+/*Users List*/
+
+table {
+  display: grid;
+  grid-template-columns: auto;
+  width: 60%;
+  margin: 0 auto;
+}
+
+tr {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+}
+
