@@ -16,7 +16,7 @@ function Username ({ username, removeCookie }) {
   const { data } = useRequest(
     !sendRequest
       ? null
-      : [BASE_URL + 'auth/token/logout', 'POST', null, token]
+      : [BASE_URL + 'auth/token/logout/', 'POST', null, token]
   )
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function Username ({ username, removeCookie }) {
       removeCookie('username')
       navigate('/')
     }
-  })
+  }, [data])
 
   const onMouseEnterHandler = () => {
     setLogoutButton(true)

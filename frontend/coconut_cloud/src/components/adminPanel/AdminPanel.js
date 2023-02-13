@@ -12,7 +12,6 @@ function AdminPanel () {
   const { data } = useRequest([BASE_URL + 'auth/users/me/', 'GET', null, token])
 
   useEffect(() => {
-    console.log(data)
     if (data && data.is_staff) {
       setAccess(true)
     }

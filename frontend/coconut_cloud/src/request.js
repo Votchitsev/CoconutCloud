@@ -10,7 +10,15 @@ const fetcher = async ([url, method, body, token]) => {
       },
       body: body ? JSON.stringify(body) : null
     })
-    const json = await response.json()
+
+    let json
+
+    try {
+      json = await response.json()
+    } catch {
+      json = {}
+    }
+
     json.ok = response.ok
     return json
   } catch (error) {

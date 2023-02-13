@@ -14,14 +14,47 @@
 /*Users List*/
 
 table {
-  display: grid;
-  grid-template-columns: auto;
   width: 60%;
   margin: 0 auto;
+  font-size: 1.5em;
 }
 
-tr {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
+thead {
+  height: 2em;
 }
 
+th, td {
+  text-align: center;
+  cursor: default;
+}
+
+.is-staff-btn-container {
+  display: flex;
+  width: 50px;
+  height: 1em;
+  border-radius: 15px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.is-staff-btn {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  background-color: #ff5600;
+  border-radius: 15px;
+}
+
+.on {
+  justify-content: end;
+  background-color: #ffab0e;
+}
+
+.off {
+  justify-content: start;
+  background-color: #00bb9c;
+}
+
+img {
+  cursor: pointer;
+}
