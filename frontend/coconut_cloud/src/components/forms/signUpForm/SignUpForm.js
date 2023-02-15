@@ -30,13 +30,12 @@ function SignUpForm () {
   useEffect(() => {
     if (data) {
       if (!data.ok) {
-        data.ok = null
-        setError(Object.values(data))
+        setError(Object.values(data.data))
         setSendRequest(false)
         return
       }
-      navigate('/sign-in/')
     }
+    navigate('/sign-in/')
   }, [data])
 
   const onSubmitHandler = (e) => {
@@ -61,6 +60,7 @@ function SignUpForm () {
         password: password.current.value,
         password2: password2.current.value
       })
+
       setError()
       setPage(2)
       email.current.value = ''

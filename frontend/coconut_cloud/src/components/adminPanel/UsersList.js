@@ -11,13 +11,13 @@ function UsersList () {
   const { data } = useRequest([BASE_URL + 'auth/users/', 'GET', null, token])
 
   useEffect(() => {
-    setRenderedData(data)
+    if (data && data.ok) {
+      setRenderedData(data.data)
+    }
   }, [data])
 
   const removeItem = (id) => {
-    const removingItem = renderedData.find(item => item.id === id)
-    const newRenderedData = renderedData.splice(renderedData.indexOf(removingItem), 1)
-
+    const newRenderedData = renderedData.filter(item => item.id !== id)
     setRenderedData(newRenderedData)
   }
 

@@ -1,28 +1,26 @@
 import useSWR from 'swr'
 
 const fetcher = async ([url, method, body, token]) => {
+  const response = await fetch(url, {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token ? `Token ${token}` : null
+    },
+    body: body ? JSON.stringify(body) : null
+  })
+
+  let json
+
   try {
-    const response = await fetch(url, {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token ? `Token ${token}` : null
-      },
-      body: body ? JSON.stringify(body) : null
-    })
+    json = await response.json()
+  } catch {
+    json = undefined
+  }
 
-    let json
-
-    try {
-      json = await response.json()
-    } catch {
-      json = {}
-    }
-
-    json.ok = response.ok
-    return json
-  } catch (error) {
-    return error
+  return {
+    ok: response.ok,
+    data: json
   }
 }
 

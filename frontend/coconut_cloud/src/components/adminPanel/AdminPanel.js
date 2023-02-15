@@ -12,7 +12,7 @@ function AdminPanel () {
   const { data } = useRequest([BASE_URL + 'auth/users/me/', 'GET', null, token])
 
   useEffect(() => {
-    if (data && data.is_staff) {
+    if (data && data.data.is_staff) {
       setAccess(true)
     }
   }, [data])

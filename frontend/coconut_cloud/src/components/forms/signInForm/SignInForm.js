@@ -26,20 +26,21 @@ function SignInForm ({ setCookie }) {
 
   useEffect(() => {
     if (data) {
-      if (data.non_field_errors) {
-        setError(data.non_field_errors[0])
+      if (!data.ok) {
+        setError(Object.values(data.data))
         return
       }
-      dispatch(
-        login({
-          token: data.auth_token,
-          username: 'test_username'
-        })
-      )
-      setCookie('token', data.auth_token)
-      setCookie('username', 'test_username')
-      navigate('/')
     }
+
+    dispatch(
+      login({
+        token: data.data.auth_token,
+        username: 'test_username'
+      })
+    )
+    setCookie('token', data.data.auth_token)
+    setCookie('username', 'test_username')
+    navigate('/')
   }, [data])
 
   const onSubmitHandler = (e) => {
