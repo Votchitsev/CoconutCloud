@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
-import IsStaffBtn from './isStaffButton'
+import IsStaffBtn from './IsStaffButton'
+import { deleteUser, patchUser } from '../../api/requests'
 import img from '../forms/icons8-close.svg'
 import './AdminPanel.css'
-import useRequest from '../../request'
-import BASE_URL from '../../config'
 
 function User ({ id, username, firstName, lastName, email, isStaff, removeItem }) {
   const [sendRequest, setSendRequest] = useState('')
@@ -13,23 +12,29 @@ function User ({ id, username, firstName, lastName, email, isStaff, removeItem }
   const [_isStaff, _setIsStaff] = useState(isStaff)
   const token = useSelector(state => state.auth.authToken)
 
-  const deleteResponse = useRequest(sendRequest && sendRequest === 'DELETE'
-    ? [BASE_URL + `auth/users/${id}/`, 'DELETE', { current_password: currentPassword }, token]
-    : null)
-
-  const changeIsStaffResponse = useRequest(sendRequest && sendRequest === 'PATCH'
-    ? [BASE_URL + `auth/users/${id}/`, 'PATCH', { is_staff: _isStaff }, token]
-    : null)
-
   useEffect(() => {
-    if (deleteResponse.data || changeIsStaffResponse.data) {
-      setSendRequest(false)
+    const fetchDataDelete = async () => {
+      const response = await deleteUser(token, currentPassword, id)
 
-      if (deleteResponse.data.ok) {
+      if (response.ok) {
         removeItem(id)
       }
     }
-  }, [deleteResponse, changeIsStaffResponse])
+
+    const fetchDataPatch = async () => {
+      await patchUser(token, id, _isStaff)
+    }
+
+    if (sendRequest === 'DELETE') {
+      fetchDataDelete()
+      setSendRequest('')
+    }
+
+    if (sendRequest === 'PATCH') {
+      fetchDataPatch()
+      setSendRequest('')
+    }
+  }, [sendRequest])
 
   const onClickHandler = (method) => {
     if (method === 'DELETE') {

@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
-import Header from './components/header/header'
+import Header from './components/header/Header'
 import SignUpForm from './components/forms/signUpForm/SignUpForm'
 import SignInForm from './components/forms/signInForm/SignInForm'
 import AdminPanel from './components/adminPanel/AdminPanel'

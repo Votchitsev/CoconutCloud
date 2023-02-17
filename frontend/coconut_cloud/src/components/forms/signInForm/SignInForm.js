@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import Preloader from '../../preloader/Preloader'
 import PropTypes from 'prop-types'
 import { login } from '../../../reduxStore/slices/authSlice'
-import useRequest from '../../../request'
-import BASE_URL from '../../../config'
+import { logIn } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
@@ -13,35 +13,44 @@ function SignInForm ({ setCookie }) {
   const password = useRef()
   const [sendRequest, setSendRequest] = useState(false)
   const [error, setError] = useState()
+  const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { data } = useRequest(
-    !sendRequest
-      ? null
-      : [BASE_URL + '/auth/token/login', 'POST', {
-          email: email.current.value,
-          password: password.current.value
-        }])
-
   useEffect(() => {
-    if (data) {
-      if (!data.ok) {
-        setError(Object.values(data.data))
+    const fetchData = async () => {
+      setIsLoading(true)
+
+      const response = await logIn(email.current.value, password.current.value)
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(Object.values(data))
+        setSendRequest(false)
+        setIsLoading(false)
         return
       }
+
+      dispatch(
+        login({
+          token: data.auth_token,
+          username: 'test_username'
+        })
+      )
+
+      setCookie('token', data.auth_token)
+      setCookie('username', 'test_username')
+
+      navigate('/')
+
+      setSendRequest(false)
+      setIsLoading(false)
     }
 
-    dispatch(
-      login({
-        token: data.data.auth_token,
-        username: 'test_username'
-      })
-    )
-    setCookie('token', data.data.auth_token)
-    setCookie('username', 'test_username')
-    navigate('/')
-  }, [data])
+    if (sendRequest) {
+      fetchData()
+    }
+  }, [sendRequest])
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
@@ -49,6 +58,7 @@ function SignInForm ({ setCookie }) {
   }
 
   return (
+    <>
     <form className="form" onSubmit={ onSubmitHandler }>
       <h2 className='form--title'>Sign In</h2>
       <input type='email' ref={ email } placeholder='email' required></input>
@@ -57,6 +67,8 @@ function SignInForm ({ setCookie }) {
       <span>{error}</span>
       <button className='close'><Link to='/'><img src={img} /></Link></button>
     </form>
+    { isLoading ? <Preloader /> : null }
+    </>
   )
 }
 

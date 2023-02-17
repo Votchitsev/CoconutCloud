@@ -1,28 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import BASE_URL from '../../config'
-import useRequest from '../../request'
+import { userMe } from '../../api/requests'
 import UsersList from './UsersList'
 import './AdminPanel.css'
+import Preloader from '../preloader/Preloader'
 
 function AdminPanel () {
   const token = useSelector(state => state.auth.authToken)
   const [access, setAccess] = useState(false)
-
-  const { data } = useRequest([BASE_URL + 'auth/users/me/', 'GET', null, token])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    if (data && data.data.is_staff) {
-      setAccess(true)
+    const fetchData = async () => {
+      setIsLoading(true)
+      const response = await userMe(token)
+      const data = await response.json()
+
+      if (data.is_staff) {
+        setAccess(true)
+      }
+
+      setIsLoading(false)
     }
-  }, [data])
+
+    fetchData()
+  }, [])
 
   return (
-    !access
-      ? <div className='admin-panel--access-denied'>
-          <span className='content'>{'You do not have access to the administration panel :('}</span>
-        </div>
-      : <UsersList />
+    isLoading
+      ? <Preloader />
+      : !access
+          ? <div className='admin-panel--access-denied'>
+              <span className='content'>{'You do not have access to the administration panel :('}</span>
+            </div>
+          : <UsersList />
   )
 }
 

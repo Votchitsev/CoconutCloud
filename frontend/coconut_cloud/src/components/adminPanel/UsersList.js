@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import useRequest from '../../request'
 import User from './User'
-import BASE_URL from '../../config'
+import { getUserList } from '../../api/requests'
 import './AdminPanel.css'
 
 function UsersList () {
   const token = useSelector(state => state.auth.authToken)
   const [renderedData, setRenderedData] = useState(null)
-  const { data } = useRequest([BASE_URL + 'auth/users/', 'GET', null, token])
 
   useEffect(() => {
-    if (data && data.ok) {
-      setRenderedData(data.data)
+    const fetchData = async () => {
+      const response = await getUserList(token)
+      const data = await response.json()
+
+      if (response.ok) {
+        setRenderedData(data)
+      }
     }
-  }, [data])
+
+    fetchData()
+  }, [])
 
   const removeItem = (id) => {
     const newRenderedData = renderedData.filter(item => item.id !== id)
@@ -24,11 +29,13 @@ function UsersList () {
   return (
     <table>
       <thead>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>email</th>
-        <th>is admin</th>
+        <tr>
+          <th>Username</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>email</th>
+          <th>is admin</th>
+        </tr>
       </thead>
       <tbody>
         {
