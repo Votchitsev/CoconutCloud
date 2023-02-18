@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { logout } from '../../reduxStore/slices/authSlice'
 import { logOut, userMe } from '../../api/requests'
 
-function Username ({ username, removeCookie }) {
+function Username ({ username }) {
   const [logoutButton, setLogoutButton] = useState(false)
   const [sendRequest, setSendRequest] = useState(false)
   const [user, setUsername] = useState(username)
@@ -32,9 +32,6 @@ function Username ({ username, removeCookie }) {
 
       if (response.ok) {
         dispatch(logout())
-
-        removeCookie('token')
-        removeCookie('username')
 
         navigate('/')
       }
@@ -74,8 +71,7 @@ function Username ({ username, removeCookie }) {
 }
 
 Username.propTypes = {
-  username: PropTypes.string,
-  removeCookie: PropTypes.any
+  username: PropTypes.string
 }
 
 export default Username

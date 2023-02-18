@@ -2,13 +2,12 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Preloader from '../../preloader/Preloader'
-import PropTypes from 'prop-types'
 import { login } from '../../../reduxStore/slices/authSlice'
 import { logIn } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function SignInForm ({ setCookie }) {
+function SignInForm () {
   const email = useRef()
   const password = useRef()
   const [sendRequest, setSendRequest] = useState(false)
@@ -37,9 +36,6 @@ function SignInForm ({ setCookie }) {
           username: 'test_username'
         })
       )
-
-      setCookie('token', data.auth_token)
-      setCookie('username', 'test_username')
 
       navigate('/')
 
@@ -70,10 +66,6 @@ function SignInForm ({ setCookie }) {
     { isLoading ? <Preloader /> : null }
     </>
   )
-}
-
-SignInForm.propTypes = {
-  setCookie: PropTypes.any
 }
 
 export default SignInForm
