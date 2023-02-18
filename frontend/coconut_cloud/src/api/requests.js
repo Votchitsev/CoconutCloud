@@ -78,3 +78,13 @@ export function signUp (data) {
     body: JSON.stringify(data)
   })
 }
+
+export function postFile (token, data) {
+  return fetch(BASE_URL + 'files/', {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${token}`
+    },
+    body: data
+  })
+}

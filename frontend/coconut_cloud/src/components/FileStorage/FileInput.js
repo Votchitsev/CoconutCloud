@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import './FileInput.css'
 
-function FileInput () {
+function FileInput ({ sendFile }) {
   const file = useRef()
   const [fileChosen, setFileChosen] = useState()
 
@@ -11,8 +12,8 @@ function FileInput () {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
-    console.log(fileChosen)
     setFileChosen()
+    sendFile(fileChosen.item(0))
   }
 
   return (
@@ -31,6 +32,10 @@ function FileInput () {
           : null }
     </form>
   )
+}
+
+FileInput.propTypes = {
+  sendFile: PropTypes.func
 }
 
 export default FileInput
