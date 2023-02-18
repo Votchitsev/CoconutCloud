@@ -6,6 +6,7 @@ import Header from './components/header/Header'
 import SignUpForm from './components/forms/signUpForm/SignUpForm'
 import SignInForm from './components/forms/signInForm/SignInForm'
 import AdminPanel from './components/adminPanel/AdminPanel'
+import FileStorage from './components/FileStorage/FileStorage'
 
 function App () {
   return (
@@ -15,6 +16,7 @@ function App () {
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
         <Route path='/admin' element={<AdminPanel />} />
+        <Route path='/my-storage' element={<FileStorage />} />
       </Routes>
     </Router>
   )
