@@ -14,3 +14,7 @@
 .file-comment {
   visibility: hidden;
 }
+
+.current {
+  font-weight: bold;
+}

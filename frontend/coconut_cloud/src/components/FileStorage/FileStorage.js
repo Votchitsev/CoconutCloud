@@ -6,6 +6,7 @@ import { postFile, getFiles } from '../../api/requests'
 
 function FileStorage () {
   const token = useSelector(state => state.auth.authToken)
+  const [currentFile, setCurrentFile] = useState()
   const [files, setFiles] = useState([])
 
   useEffect(() => {
@@ -31,8 +32,13 @@ function FileStorage () {
 
   return (
     <>
-    <FileList fileList={ files }/>
+    <FileList
+      fileList={ files }
+      setCurrentFile={ setCurrentFile }
+      currentFile={ currentFile }
+      />
     <FileInput sendFile={ sendFile } />
+    {currentFile ? <div>current</div> : null}
     </>
   )
 }
