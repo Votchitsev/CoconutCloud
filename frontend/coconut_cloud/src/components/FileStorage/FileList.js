@@ -22,7 +22,7 @@ function FileList ({ fileList, currentFile, setCurrentFile }) {
 
 FileList.propTypes = {
   fileList: PropTypes.array,
-  currentFile: PropTypes.number,
+  currentFile: PropTypes.object,
   setCurrentFile: PropTypes.func
 }
 

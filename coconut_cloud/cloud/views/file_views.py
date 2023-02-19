@@ -64,9 +64,7 @@ class FileView(APIView):
                 user_id=request.user.id,
                 )
 
-            data = {
-                'message': 'The file has been updated in the storage'
-            }
+            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
 
             return Response(data)
 

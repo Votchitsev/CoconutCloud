@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import FileInput from './FileInput'
 import FileList from './FileList'
+import FileEditPanel from './FileEditPanel'
 import { postFile, getFiles } from '../../api/requests'
 
 function FileStorage () {
@@ -38,7 +39,9 @@ function FileStorage () {
       currentFile={ currentFile }
       />
     <FileInput sendFile={ sendFile } />
-    {currentFile ? <div>current</div> : null}
+    { currentFile
+      ? <FileEditPanel currentFile={ currentFile } setFiles={ setFiles }/>
+      : null }
     </>
   )
 }
