@@ -17,7 +17,7 @@ function FileInput ({ sendFile }) {
   }
 
   return (
-    <form onSubmit={onSubmitHandler}>
+    <form className='file-input-form' onSubmit={onSubmitHandler}>
       <div className='input-wrapper button'>
         <input type='file' id='input_file' ref={file} onChange={onChangeHandler}></input>
         <label htmlFor='input_file'>

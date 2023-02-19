@@ -1,0 +1,16 @@
+.file {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  margin: 10px;
+}
+
+.file-name {
+  font-size: 0.8em;
+  line-break: auto;
+  word-break: break-all;
+}
+
+.file-comment {
+  visibility: hidden;
+}

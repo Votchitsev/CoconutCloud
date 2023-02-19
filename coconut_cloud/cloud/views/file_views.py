@@ -22,7 +22,7 @@ class FileView(APIView):
     def get(self, request):
 
         if 'id' not in request.query_params:
-            files = self.get_queryset().values('id', 'size', 'upload_date', 'last_download_date', 'comment')
+            files = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
             return Response(files)
         
         file = self.get_queryset().filter(id = request.query_params['id']).first()
@@ -46,9 +46,7 @@ class FileView(APIView):
         if serializer.is_valid():
             serializer.create(user_id=request.user.id, file=request.FILES['file'])
 
-            data = {
-                'message': 'The file has been added to the storage',
-            }
+            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
             
             return Response(data, status=status.HTTP_200_OK) 
 

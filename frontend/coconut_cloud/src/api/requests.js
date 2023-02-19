@@ -88,3 +88,12 @@ export function postFile (token, data) {
     body: data
   })
 }
+
+export function getFiles (token) {
+  return fetch(BASE_URL + 'files/', {
+    method: 'GET',
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+}

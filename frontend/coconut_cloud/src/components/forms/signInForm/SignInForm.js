@@ -37,7 +37,7 @@ function SignInForm () {
         })
       )
 
-      navigate('/')
+      navigate('/my-storage/')
 
       setSendRequest(false)
       setIsLoading(false)
