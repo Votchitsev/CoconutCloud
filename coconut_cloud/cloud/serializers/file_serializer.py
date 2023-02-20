@@ -11,7 +11,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FileModel
-        fields = ['file', 'comment']
+        fields = ['file']
 
     def create(self, **kwargs):
 
@@ -50,7 +50,7 @@ class FileSerializer(serializers.ModelSerializer):
 
         validated_data = patchValidator(self.initial_data)
 
-        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=validated_data['id']).first()
+        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=validated_data['id']).first()           
 
         if file:
             file.native_file_name = validated_data['native_file_name']

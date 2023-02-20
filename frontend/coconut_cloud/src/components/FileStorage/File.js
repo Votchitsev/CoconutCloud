@@ -23,12 +23,19 @@ function File ({ id, name, comment, currentFile, setCurrentFile }) {
     setShowComment(true)
   }
 
+  const onMouseLeaveHandler = () => {
+    setShowComment(false)
+  }
+
   return (
     <>
-    <div className={`file ${currentFile && currentFile.id === id ? 'current' : ''}`} onClick={ onClickHandler } onMouseOver={ onMouseOverHandler }>
+    <div className={`file ${currentFile && currentFile.id === id ? 'current' : ''}`}
+      onClick={ onClickHandler }
+      onMouseOver={ onMouseOverHandler }
+      onMouseLeave={ onMouseLeaveHandler }>
       <img src={ img }></img>
       <div className='file-name'>{ name }</div>
-      { showComment ? <div className='file-comment'>{ comment }</div> : null }
+      { showComment && comment ? <div className='file-comment'>{ comment }</div> : null }
     </div>
     </>
   )
