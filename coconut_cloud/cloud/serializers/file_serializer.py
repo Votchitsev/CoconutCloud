@@ -11,7 +11,7 @@ class FileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = FileModel
-        fields = ['file']
+        fields = ['file', 'comment']
 
     def create(self, **kwargs):
 

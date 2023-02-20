@@ -16,6 +16,9 @@
 
 .form--title {
   font-size: 2em;
+  height: fit-content;
+  text-align: center;
+  width: 70%;
 }
 
 .form > input {
@@ -70,4 +73,8 @@ textarea {
   padding: 20px 20px;
   font-size: 1em;
   font-family: inherit;
+}
+
+.no {
+  cursor: pointer;
 }

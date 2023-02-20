@@ -108,3 +108,13 @@ export function patchFile (token, data) {
     body: JSON.stringify(data)
   })
 }
+
+export function deleteFile (token, id) {
+  return fetch(BASE_URL + `files/?id=${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${token}`
+    }
+  })
+}

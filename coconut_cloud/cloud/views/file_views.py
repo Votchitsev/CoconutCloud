@@ -77,8 +77,10 @@ class FileView(APIView):
 
         if deleted_file:
             deleted_file.delete()
+
+            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
         
-            return Response(status.HTTP_200_OK)
+            return Response(data, status.HTTP_200_OK)
 
         data = {
             'message': 'The file not found',
