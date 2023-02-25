@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import PropTypes from 'prop-types'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 import { patchFile } from '../../../api/requests'
 
-function FileRenameForm () {
+function FileRenameForm ({ token }) {
   const location = useLocation()
-  const token = useSelector(state => state.auth.authToken)
   const navigate = useNavigate()
   const newFileName = useRef()
 
@@ -36,6 +35,10 @@ function FileRenameForm () {
       <button className='close'><Link to='/my-storage/'><img src={img} /></Link></button>
     </form>
   )
+}
+
+FileRenameForm.propTypes = {
+  token: PropTypes.string
 }
 
 export default FileRenameForm

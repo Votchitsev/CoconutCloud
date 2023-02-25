@@ -40,7 +40,7 @@ function FileStorage () {
       />
     <FileInput sendFile={ sendFile } />
     { currentFile
-      ? <FileEditPanel currentFile={ currentFile } setFiles={ setFiles }/>
+      ? <FileEditPanel currentFile={ currentFile } setFiles={ setFiles } setCurrentFile={ setCurrentFile } />
       : null }
     </>
   )

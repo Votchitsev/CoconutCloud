@@ -118,3 +118,23 @@ export function deleteFile (token, id) {
     }
   })
 }
+
+export function downloadFile (token, id) {
+  return fetch(BASE_URL + `link/${id}/`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${token}`
+    }
+  })
+}
+
+export function getDownloadLink (token, id) {
+  return fetch(BASE_URL + `link/?file_id=${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Token ${token}`
+    }
+  })
+}

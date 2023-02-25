@@ -12,7 +12,7 @@ from coconut_cloud.cloud.models import FileModel
 @permission_classes([IsAuthenticated])
 def get_link(request):
     user_id = request.user.id
-    file_id = request.data['file_id']
+    file_id = request.query_params['file_id']
     
     file = FileModel.objects.filter(user_id=user_id).filter(id=file_id).first()
     

@@ -1,13 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { deleteFile } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function DeleteFileSubmitForm ({ currentFile, setForm, setFiles }) {
-  const token = useSelector(state => state.auth.authToken)
-
+function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles }) {
   const onSubmitHandler = async (e) => {
     e.preventDefault()
 
@@ -34,6 +31,7 @@ function DeleteFileSubmitForm ({ currentFile, setForm, setFiles }) {
 }
 
 DeleteFileSubmitForm.propTypes = {
+  token: PropTypes.string,
   currentFile: PropTypes.object,
   setForm: PropTypes.func,
   setFiles: PropTypes.func

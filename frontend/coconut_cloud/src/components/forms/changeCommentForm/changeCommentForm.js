@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import { patchFile } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function ChangeCommentForm ({ currentFile, setForm, setFiles }) {
-  const token = useSelector(state => state.auth.authToken)
+function ChangeCommentForm ({ token, currentFile, setForm, setFiles }) {
   const newComment = useRef()
 
   useEffect(() => {
@@ -43,6 +41,7 @@ function ChangeCommentForm ({ currentFile, setForm, setFiles }) {
 }
 
 ChangeCommentForm.propTypes = {
+  token: PropTypes.string,
   currentFile: PropTypes.object,
   setForm: PropTypes.func,
   setFiles: PropTypes.func
