@@ -27,6 +27,7 @@ function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
         const link = document.createElement('a')
         link.href = fileURL
         link.download = currentFile.native_file_name
+
         document.body.appendChild(link)
         link.click()
         document.body.removeChild(link)
