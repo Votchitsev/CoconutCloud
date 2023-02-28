@@ -13,8 +13,11 @@ from coconut_cloud.cloud.models import FileModel
 def get_link(request):
     user_id = request.user.id
     file_id = request.query_params['file_id']
-    
-    file = FileModel.objects.filter(user_id=user_id).filter(id=file_id).first()
+
+    if request.user.is_staff:
+        file = FileModel.objects.filter(id=file_id).first()
+    else:
+        file = FileModel.objects.filter(user_id=user_id).filter(id=file_id).first()
     
     if file:
         data = {

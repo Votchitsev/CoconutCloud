@@ -22,7 +22,7 @@ class FileView(APIView):
     def get(self, request):
 
         if 'id' not in request.query_params:
-            files = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            files = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
             return Response(files)
         
         file = self.get_queryset().filter(id = request.query_params['id']).first()
@@ -46,7 +46,7 @@ class FileView(APIView):
         if serializer.is_valid():
             serializer.create(user_id=request.user.id, file=request.FILES['file'])
 
-            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
             
             return Response(data, status=status.HTTP_200_OK) 
 
@@ -64,7 +64,7 @@ class FileView(APIView):
                 user_id=request.user.id,
                 )
 
-            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
 
             return Response(data)
 
@@ -73,12 +73,15 @@ class FileView(APIView):
         return Response(data)
 
     def delete(self, request):
-        deleted_file = FileModel.objects.filter(user_id=request.user.id).all().filter(id=int(request.query_params['id'])).first()
+        if request.user.is_staff:
+            deleted_file = FileModel.objects.filter(id=int(request.query_params['id'])).first()
+        else:
+            deleted_file = FileModel.objects.filter(user_id=request.user.id).all().filter(id=int(request.query_params['id'])).first()
 
         if deleted_file:
             deleted_file.delete()
 
-            data = self.get_queryset().values('id', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
         
             return Response(data, status.HTTP_200_OK)
 
