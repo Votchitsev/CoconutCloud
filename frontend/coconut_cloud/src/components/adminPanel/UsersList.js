@@ -33,8 +33,10 @@ function UsersList () {
           <th>Username</th>
           <th>First name</th>
           <th>Last name</th>
-          <th>email</th>
-          <th>is admin</th>
+          <th>Email</th>
+          <th>Number of files</th>
+          <th>Total file size (mb)</th>
+          <th>Is admin</th>
         </tr>
       </thead>
       <tbody>
@@ -48,6 +50,8 @@ function UsersList () {
                 firstName={user.first_name}
                 lastName={user.last_name}
                 email={user.email}
+                numOfFiles={user.count}
+                size={ (user.size * 9.537 * Math.pow(10, -7)).toFixed(2) }
                 isStaff={user.is_staff}
                 removeItem={removeItem}
               />

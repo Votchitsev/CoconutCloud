@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.urls import path, include
 
-from coconut_cloud.cloud.views.user_view import RegistrUserView
+from coconut_cloud.cloud.views.user_view import RegistrUserView, get_detail_user_list
 from coconut_cloud.cloud.views.file_views import FileView
 from coconut_cloud.cloud.views.file_transfer_view import get_link, get_file
 
 urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
+    path('detail_users_list/', get_detail_user_list),
     path('registr/', RegistrUserView.as_view()),
     path('files/', FileView.as_view()),
     path('link/', get_link),

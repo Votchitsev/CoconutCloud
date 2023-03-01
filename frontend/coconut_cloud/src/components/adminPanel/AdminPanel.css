@@ -16,22 +16,24 @@
 table {
   width: 60%;
   margin: 0 auto;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 thead {
   height: 2em;
+  font-size: 1.2em;
 }
 
 th, td {
   text-align: center;
   cursor: default;
+  /* height: 1.5em; */
 }
 
 .is-staff-btn-container {
   display: flex;
   width: 50px;
-  height: 1em;
+  height: 1.5em;
   border-radius: 15px;
   margin: 0 auto;
   cursor: pointer;

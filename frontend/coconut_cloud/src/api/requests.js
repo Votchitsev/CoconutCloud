@@ -34,7 +34,7 @@ export function userMe (token) {
 }
 
 export function getUserList (token) {
-  return fetch(BASE_URL + 'auth/users/', {
+  return fetch(BASE_URL + 'detail_users_list/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

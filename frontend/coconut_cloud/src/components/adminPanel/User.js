@@ -6,7 +6,7 @@ import { deleteUser, patchUser } from '../../api/requests'
 import img from '../forms/icons8-close.svg'
 import './AdminPanel.css'
 
-function User ({ id, username, firstName, lastName, email, isStaff, removeItem }) {
+function User ({ id, username, firstName, lastName, email, numOfFiles, size, isStaff, removeItem }) {
   const [sendRequest, setSendRequest] = useState('')
   const [currentPassword, setCurrentPassword] = useState('')
   const [_isStaff, _setIsStaff] = useState(isStaff)
@@ -50,6 +50,8 @@ function User ({ id, username, firstName, lastName, email, isStaff, removeItem }
       <td>{ firstName }</td>
       <td>{ lastName }</td>
       <td>{ email }</td>
+      <td>{ numOfFiles }</td>
+      <td>{ size }</td>
       <td><IsStaffBtn isStaff={ _isStaff } setIsStaff={ _setIsStaff} onClickHandler={onClickHandler} /></td>
       <td><img src={img} onClick={() => onClickHandler('DELETE')}></img></td>
     </tr>
@@ -62,6 +64,8 @@ User.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   email: PropTypes.string,
+  numOfFiles: PropTypes.number,
+  size: PropTypes.number,
   isStaff: PropTypes.bool,
   removeItem: PropTypes.func
 }

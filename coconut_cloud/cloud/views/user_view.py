@@ -1,11 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny, IsAdminUser
-from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view
+from django.db.models import Sum, Count
 
-from coconut_cloud.cloud.models import User
+from coconut_cloud.cloud.models import User, FileModel
 from coconut_cloud.cloud.serializers.user_serializer import RegistrUserSerializer, UserSerializer
 
 
@@ -32,3 +34,15 @@ class RegistrUserView(CreateAPIView):
             data = serializer.errors
 
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def get_detail_user_list(request):
+    result = User.objects.annotate(size=Sum('filemodel__size'), count=Count('filemodel__id')).values(
+        'id', 'username', 'first_name', 'last_name', 'email', 'count', 'size', 'is_staff')
+
+    if result:
+        return Response(result, status=status.HTTP_200_OK)
+
+    return Response(status=status.HTTP_404_NOT_FOUND)
