@@ -30,12 +30,12 @@ function File ({ id, name, comment, size, upload, download, currentFile, setCurr
 
   return (
     <>
-    <div className={`file ${currentFile && currentFile.id === id ? 'current' : ''}`}
+    <div className='file'
       onClick={ onClickHandler }
       onMouseOver={ onMouseOverHandler }
       onMouseLeave={ onMouseLeaveHandler }>
       <img src={ img }></img>
-      <div className='file-name'>{ name }</div>
+      <div className={`file-name ${currentFile && currentFile.id === id ? 'current' : ''}`}>{ name }</div>
       { showComment
         ? <FileDescription
           upload={ upload }
