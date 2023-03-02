@@ -32,8 +32,7 @@ function SignInForm () {
 
       dispatch(
         login({
-          token: data.auth_token,
-          username: 'test_username'
+          token: data.auth_token
         })
       )
 

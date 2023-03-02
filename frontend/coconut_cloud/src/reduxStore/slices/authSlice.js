@@ -11,7 +11,6 @@ const authSlice = createSlice(
     reducers: {
       login (state, action) {
         state.authToken = action.payload.token
-        state.username = action.payload.username
 
         addDataToStorage({
           token: state.authToken,
