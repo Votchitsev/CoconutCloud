@@ -31,6 +31,9 @@ function FileList ({ fileList, currentFile, setCurrentFile }) {
             id={file.id}
             name={file.native_file_name}
             comment={file.comment}
+            size={file.size}
+            upload={file.upload_date}
+            download={file.last_download_date}
             currentFile={currentFile}
             setCurrentFile={setCurrentFile} />
             : null) }
@@ -44,6 +47,9 @@ function FileList ({ fileList, currentFile, setCurrentFile }) {
               id={file.id}
               name={file.native_file_name}
               comment={file.comment}
+              size={file.size}
+              upload={file.upload_date}
+              download={file.last_download_date}
               currentFile={currentFile}
               setCurrentFile={setCurrentFile} />)
           }

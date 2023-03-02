@@ -12,7 +12,9 @@
   word-break: break-all;
 }
 
-.file-comment {
+.file-description {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width:max-content;
   max-width: 200px;
@@ -25,6 +27,19 @@
   border-radius: 10px;
   font-size: 0.8em;
   z-index: 1;
+}
+
+.file-description--item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-description--item--name {
+  font-weight: bold;
+}
+
+.file-description--item--content {
+  margin-left: 10px; 
 }
 
 .current {
