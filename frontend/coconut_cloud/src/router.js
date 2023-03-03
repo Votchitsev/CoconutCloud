@@ -8,6 +8,7 @@ import SignUpForm from './components/forms/signUpForm/SignUpForm'
 import SignInForm from './components/forms/signInForm/SignInForm'
 import AdminPanel from './components/adminPanel/AdminPanel'
 import FileStorage from './components/FileStorage/FileStorage'
+import Page404 from './components/Page404/Page404'
 
 function App () {
   return (
@@ -19,6 +20,7 @@ function App () {
         <Route path='/sign-in' element={<SignInForm />} />
         <Route path='/admin' element={<AdminPanel />} />
         <Route path='/my-storage' element={<FileStorage />} />
+        <Route path='*' element={<Page404 />} />
       </Routes>
     </Router>
   )
