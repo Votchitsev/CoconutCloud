@@ -1,0 +1,59 @@
+.file-input-form {
+  display: flex;
+  position: fixed;
+  right: 10%;
+  bottom: 10%;
+  width: 160px;
+  justify-content: space-between;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #00bb9c;
+  box-shadow: -2px 5px 23px -5px grey;
+}
+
+.button:hover {
+  background-color: #029980;
+}
+
+.input-wrapper > input {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+}
+
+input[type="submit"] {
+  height: 40px;
+  width: 50px;
+  cursor: pointer;
+  background-color: #00bb9c;
+  box-shadow: -2px 5px 23px -5px grey;
+  border-radius: 20px;
+  border: none;
+
+}
+
+input[type="submit"]:hover {
+  background-color: #029980;
+}
+
+label {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview {
+  position: absolute;
+  margin-top: -120%;
+}
+

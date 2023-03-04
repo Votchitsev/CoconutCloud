@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "corsheaders",
 
     'coconut_cloud.cloud',
+    'frontend',
 ]
 
 MIDDLEWARE = [

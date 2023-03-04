@@ -20,11 +20,12 @@ from coconut_cloud.cloud.views.file_views import FileView
 from coconut_cloud.cloud.views.file_transfer_view import get_link, get_file
 
 urlpatterns = [
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('detail_users_list/', get_detail_user_list),
-    path('registr/', RegistrUserView.as_view()),
-    path('files/', FileView.as_view()),
-    path('link/', get_link),
-    path('link/<str:link>/', get_file),
+    # path('auth/', include('djoser.urls')),
+    # path('auth/', include('djoser.urls.authtoken')),
+    path('', include('frontend.urls')),
+    path('api/detail_users_list/', get_detail_user_list),
+    path('api/registr/', RegistrUserView.as_view()),
+    path('api/files/', FileView.as_view()),
+    path('api/link/', get_link),
+    path('api/link/<str:link>/', get_file),
 ]
