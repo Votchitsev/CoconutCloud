@@ -1,10 +1,17 @@
+import Cookies from 'js-cookie'
 import BASE_URL from '../config'
 
+export function getCsrfCookie () {
+  return fetch(BASE_URL + 'auth/get_csrf')
+}
+
 export function logIn (email, password) {
-  return fetch(BASE_URL + 'auth/token/login/', {
+  return fetch(BASE_URL + 'auth/login/', {
     method: 'POST',
+    credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken' : Cookies.get('csrftoken'),
     },
     body: JSON.stringify({
       email,
@@ -14,7 +21,7 @@ export function logIn (email, password) {
 }
 
 export function logOut (token) {
-  return fetch(BASE_URL + 'auth/token/logout/', {
+  return fetch(BASE_URL + 'auth/logout/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -79,9 +79,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'coconut_cloud.wsgi.application'
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
 }
 
@@ -159,6 +163,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_HEADERS = [
     'content-type',
     'authorization',
+    'X-CSRFToken',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -168,3 +173,5 @@ CORS_ALLOW_METHODS = [
     'DELETE',
     'PATCH',
 ]
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']

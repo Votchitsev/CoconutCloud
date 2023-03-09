@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import Preloader from '../../preloader/Preloader'
+import CSRFToken from '../CSRFToken'
 import { login } from '../../../reduxStore/slices/authSlice'
 import { logIn } from '../../../api/requests'
 import '../signUpForm.css'
@@ -55,6 +56,7 @@ function SignInForm () {
   return (
     <>
     <form className="form" onSubmit={ onSubmitHandler }>
+      <CSRFToken />
       <h2 className='form--title'>Sign In</h2>
       <input type='email' ref={ email } placeholder='email' required></input>
       <input type='password' ref={ password }placeholder='password' required></input>
