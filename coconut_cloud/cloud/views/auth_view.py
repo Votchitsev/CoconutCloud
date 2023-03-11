@@ -39,3 +39,11 @@ def login_view(request):
         "message": "invalid credentials"
         }, status=400
     )
+
+
+def me_view(request):
+    data = request.user
+
+    return JsonResponse({
+        "username": data.username
+    })
