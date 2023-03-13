@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import Context from '../../globalState/state'
 import './StartPage.css'
 import img from './coconut-tree.svg'
 
 function StartPage () {
   const navigate = useNavigate()
-  const token = useSelector(state => state.auth.authToken)
+  const { sessionId } = useContext(Context)
 
   const onClickHandler = () => {
     navigate('/sign-up/')
   }
 
   useEffect(() => {
-    if (token) {
+    if (sessionId) {
       navigate('/my-storage/')
     }
   }, [])
 
   return (
-    !token
+    !sessionId
       ? <section className='start-page'>
           <div className='start-page--welcome'>
             <h1 className='start-page--welcome--title'>Upload, download and manage your files.</h1>

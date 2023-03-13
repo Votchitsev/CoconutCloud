@@ -4,7 +4,7 @@ import { deleteFile } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles }) {
+function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles, setCurrentFile }) {
   const onSubmitHandler = async (e) => {
     e.preventDefault()
 
@@ -13,6 +13,7 @@ function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles }) {
 
     if (response.ok) {
       setFiles(data)
+      setCurrentFile()
       setForm()
     }
   }

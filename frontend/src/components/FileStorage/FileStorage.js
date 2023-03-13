@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import FileInput from './FileInput'
 import FileList from './FileList'
 import FileEditPanel from './FileEditPanel'
 import { postFile, getFiles } from '../../api/requests'
 
 function FileStorage () {
-  const token = useSelector(state => state.auth.authToken)
   const [currentFile, setCurrentFile] = useState()
   const [files, setFiles] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getFiles(token)
+      const response = await getFiles()
       const data = await response.json()
 
       setFiles(data)
@@ -25,7 +23,7 @@ function FileStorage () {
     const formData = new FormData()
     formData.append('file', file)
     formData.append('comment', '')
-    const response = await postFile(token, formData)
+    const response = await postFile(formData)
     const data = await response.json()
 
     setFiles(data)
@@ -36,8 +34,7 @@ function FileStorage () {
     <FileList
       fileList={ files }
       setCurrentFile={ setCurrentFile }
-      currentFile={ currentFile }
-      />
+      currentFile={ currentFile } />
     <FileInput sendFile={ sendFile } />
     { currentFile
       ? <FileEditPanel currentFile={ currentFile } setFiles={ setFiles } setCurrentFile={ setCurrentFile } />

@@ -4,7 +4,7 @@ import { patchFile } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function ChangeCommentForm ({ token, currentFile, setForm, setFiles }) {
+function ChangeCommentForm ({ currentFile, setForm, setFiles }) {
   const newComment = useRef()
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ChangeCommentForm ({ token, currentFile, setForm, setFiles }) {
     const patchData = currentFile
     patchData.comment = newComment.current.value
 
-    const response = await patchFile(token, patchData)
+    const response = await patchFile(patchData)
     const data = await response.json()
 
     if (response.ok) {

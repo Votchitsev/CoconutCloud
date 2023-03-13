@@ -1,30 +1,33 @@
 import React, { useEffect, useRef } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 import { patchFile } from '../../../api/requests'
 
-function FileRenameForm ({ token }) {
-  const location = useLocation()
-  const navigate = useNavigate()
+function FileRenameForm ({ currentFile, setForm, setFiles }) {
   const newFileName = useRef()
 
   useEffect(() => {
-    newFileName.current.value = location.state.native_file_name
+    newFileName.current.value = currentFile.native_file_name
   }, [])
 
   const onSubmitHandler = async (e) => {
     e.preventDefault()
 
-    const data = location.state
-    data.native_file_name = newFileName.current.value
+    const patchData = currentFile
+    patchData.native_file_name = newFileName.current.value
 
-    const response = await patchFile(token, data)
+    const response = await patchFile(patchData)
+    const data = await response.json()
 
     if (response.ok) {
-      navigate('/my-storage/')
+      setFiles(data)
+      setForm()
     }
+  }
+
+  const onCloseHandler = () => {
+    setForm()
   }
 
   return (
@@ -32,13 +35,15 @@ function FileRenameForm ({ token }) {
       <h2 className='form-title'>Rename file</h2>
       <input type='text' placeholder='new name' ref={ newFileName }></input>
       <input type='submit' value='OK' required></input>
-      <button className='close'><Link to='/my-storage/'><img src={img} /></Link></button>
+      <button className='close' onClick={ onCloseHandler }><img src={img} /></button>
     </form>
   )
 }
 
 FileRenameForm.propTypes = {
-  token: PropTypes.string
+  currentFile: PropTypes.object,
+  setForm: PropTypes.func,
+  setFiles: PropTypes.func
 }
 
 export default FileRenameForm

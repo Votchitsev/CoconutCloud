@@ -20,7 +20,7 @@ export function logIn (email, password) {
   })
 }
 
-export function logOut (token) {
+export function logOut () {
   return fetch(BASE_URL + 'auth/logout/', {
     method: 'POST',
     headers: {
@@ -42,22 +42,20 @@ export function userMe () {
   })
 }
 
-export function getUserList (token) {
+export function getUserList () {
   return fetch(BASE_URL + 'detail_users_list/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     }
   })
 }
 
-export function deleteUser (token, password, id) {
+export function deleteUser (password, id) {
   return fetch(BASE_URL + `auth/users/${id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     },
     body: JSON.stringify({
       current_password: password
@@ -65,12 +63,11 @@ export function deleteUser (token, password, id) {
   })
 }
 
-export function patchUser (token, id, isStaff) {
+export function patchUser (id, isStaff) {
   return fetch(BASE_URL + `auth/users/${id}/`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     },
     body: JSON.stringify({
       is_staff: isStaff
@@ -88,62 +85,63 @@ export function signUp (data) {
   })
 }
 
-export function postFile (token, data) {
+export function postFile (data) {
   return fetch(BASE_URL + 'files/', {
     method: 'POST',
     headers: {
-      Authorization: `Token ${token}`
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+      cookie: `sessionid=${Cookies.get('sessionid')}`
     },
     body: data
   })
 }
 
-export function getFiles (token) {
+export function getFiles () {
   return fetch(BASE_URL + 'files/', {
     method: 'GET',
     headers: {
-      Authorization: `Token ${token}`
+      'Content-Type': 'application/json',
     }
   })
 }
 
-export function patchFile (token, data) {
+export function patchFile (data) {
   return fetch(BASE_URL + 'files/', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+      cookie: `sessionid=${Cookies.get('sessionid')}`
     },
     body: JSON.stringify(data)
   })
 }
 
-export function deleteFile (token, id) {
+export function deleteFile (id) {
   return fetch(BASE_URL + `files/?id=${id}`, {
     method: 'DELETE',
     headers: {
+      'X-CSRFToken' : Cookies.get('csrftoken'),
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     }
   })
 }
 
-export function downloadFile (token, id) {
+export function downloadFile (id) {
   return fetch(BASE_URL + `link/${id}/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     }
   })
 }
 
-export function getDownloadLink (token, id) {
+export function getDownloadLink (id) {
+  
   return fetch(BASE_URL + `link/?file_id=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
     }
   })
 }

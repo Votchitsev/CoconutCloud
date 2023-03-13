@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { userMe } from '../../api/requests'
 import UsersList from './UsersList'
 import './AdminPanel.css'
 import Preloader from '../preloader/Preloader'
 
 function AdminPanel () {
-  const token = useSelector(state => state.auth.authToken)
   const [access, setAccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 

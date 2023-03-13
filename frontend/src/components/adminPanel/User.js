@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import IsStaffBtn from './IsStaffButton'
 import { deleteUser, patchUser } from '../../api/requests'
@@ -10,7 +9,6 @@ function User ({ id, username, firstName, lastName, email, numOfFiles, size, isS
   const [sendRequest, setSendRequest] = useState('')
   const [currentPassword, setCurrentPassword] = useState('')
   const [_isStaff, _setIsStaff] = useState(isStaff)
-  const token = useSelector(state => state.auth.authToken)
 
   useEffect(() => {
     const fetchDataDelete = async () => {

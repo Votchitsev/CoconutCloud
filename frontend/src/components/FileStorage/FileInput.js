@@ -12,6 +12,7 @@ function FileInput ({ sendFile }) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault()
+    
     setFileChosen()
     sendFile(fileChosen.item(0))
   }
@@ -28,7 +29,7 @@ function FileInput ({ sendFile }) {
           : null }
         </div>
         { fileChosen && fileChosen.length
-          ? <input type={'submit'} value={'send'}/>
+          ? <input type={'submit'} value={'send'} />
           : null }
     </form>
   )

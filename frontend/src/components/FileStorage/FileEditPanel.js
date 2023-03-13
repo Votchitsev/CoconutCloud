@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useSelector } from 'react-redux'
-import FileRenameForm from '../forms/fileRenameForm/_FileRenameForm'
+import FileRenameForm from '../forms/fileRenameForm/FileRenameForm'
 import DeleteFileSubmitForm from '../forms/submitForm/SubmitForm'
 import GetLinkForm from '../forms/getLinkForm/getLinkForm'
 import { downloadFile, getDownloadLink } from '../../api/requests'
@@ -12,15 +11,15 @@ import BASE_URL from '../../config'
 function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
   const [patchForm, setPatchForm] = useState()
   const [downloadLink, setDownloadLink] = useState()
-  const token = useSelector(state => state.auth.authToken)
 
   const onClickHandler = (action) => {
+
     if (action === 'download') {
       const downloadFileHandler = async () => {
-        const response = await getDownloadLink(token, currentFile.id)
+        const response = await getDownloadLink(currentFile.id)
         const data = await response.json()
 
-        const downloadResponse = await downloadFile(token, data.link)
+        const downloadResponse = await downloadFile(data.link)
         const downloadData = await downloadResponse.blob()
 
         const fileURL = window.URL.createObjectURL(downloadData)
@@ -40,7 +39,7 @@ function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
 
     if (action === 'getLink') {
       const getLink = async () => {
-        const response = await getDownloadLink(token, currentFile.id)
+        const response = await getDownloadLink(currentFile.id)
         const data = await response.json()
 
         const link = `${BASE_URL}link/${data.link}/`
@@ -62,10 +61,30 @@ function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
         <div className='file-edit-panel--item' onClick={ () => onClickHandler('getLink')}>Get download link</div>
         <div className='file-edit-panel--item' onClick={ () => onClickHandler('delete')}>Delete</div>
       </div>
-      { patchForm === 'rename' ? <FileRenameForm currentFile={ currentFile } token={ token } setForm={ setPatchForm } setFiles={ setFiles } /> : null }
-      { patchForm === 'changeComment' ? <ChangeCommentForm currentFile={ currentFile } token={ token } setForm={ setPatchForm } setFiles={ setFiles } /> : null }
-      { patchForm === 'delete' ? <DeleteFileSubmitForm currentFile={ currentFile } token={ token } setForm={ setPatchForm } setFiles={ setFiles } /> : null }
-      { patchForm === 'getLink' ? <GetLinkForm link={ downloadLink } setForm={ setPatchForm } /> : null }
+      { patchForm === 'rename'
+      ? <FileRenameForm
+          currentFile={ currentFile }
+          setForm={ setPatchForm }
+          setFiles={ setFiles } /> 
+      : null }
+      { patchForm === 'changeComment'
+      ? <ChangeCommentForm 
+        currentFile={ currentFile }
+        setForm={ setPatchForm }
+        setFiles={ setFiles } /> 
+      : null }
+      { patchForm === 'delete' 
+      ? <DeleteFileSubmitForm
+          currentFile={ currentFile }
+          setForm={ setPatchForm }
+          setFiles={ setFiles }
+          setCurrentFile={ setCurrentFile } /> 
+      : null }
+      { patchForm === 'getLink' 
+      ? <GetLinkForm
+        link={ downloadLink }
+        setForm={ setPatchForm } /> 
+      : null }
     </>
   )
 }
