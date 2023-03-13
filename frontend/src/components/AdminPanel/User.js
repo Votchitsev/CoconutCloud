@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import IsStaffBtn from './IsStaffButton'
 import { deleteUser, patchUser } from '../../api/requests'
-import img from '../forms/icons8-close.svg'
+import img from '../formStyle/icons8-close.svg'
 import './AdminPanel.css'
 
 function User ({ id, username, firstName, lastName, email, numOfFiles, size, isStaff, removeItem }) {

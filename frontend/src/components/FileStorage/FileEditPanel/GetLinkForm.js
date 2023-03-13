@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import '../signUpForm.css'
-import img from '../icons8-close.svg'
+import '../../formStyle/Form.css'
+import img from '../../formStyle/icons8-close.svg'
 
 function GetLinkForm ({ link, setForm }) {
   const onCloseHandler = () => {

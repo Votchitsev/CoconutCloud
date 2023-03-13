@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import File from './File'
+import File from './File/File'
 import './FileList.css'
 
 function FileList ({ fileList, currentFile, setCurrentFile }) {

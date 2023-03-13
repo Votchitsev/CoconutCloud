@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Username from './Username'
-import Context from '../../globalState/state'
-import './header.css'
+import Context from '../../GlobalState/state'
+import './Header.css'
 
 function Header () {
   const { sessionId, username } = useContext(Context)

@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { userMe } from '../../api/requests'
 import UsersList from './UsersList'
 import './AdminPanel.css'
-import Preloader from '../preloader/Preloader'
-import Context from '../../globalState/state'
+import Preloader from '../Preloader/Preloader'
+import Context from '../../GlobalState/state'
 
 function AdminPanel () {
   const { isAdmin } = useContext(Context);

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { patchFile } from '../../../api/requests'
-import '../signUpForm.css'
-import img from '../icons8-close.svg'
+import '../../formStyle/Form.css'
+import img from '../../formStyle/icons8-close.svg'
 
 function ChangeCommentForm ({ currentFile, setForm, setFiles }) {
   const newComment = useRef()

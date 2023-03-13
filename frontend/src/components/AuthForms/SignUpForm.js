@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { signUp } from '../../../api/requests'
+import { signUp } from '../../api/requests'
 import { validateUsername, validatePassword } from './validateForm'
-import Preloader from '../../preloader/Preloader'
-import '../signUpForm.css'
-import img from '../icons8-close.svg'
+import Preloader from '../Preloader/Preloader'
+import '../formStyle/Form.css'
+import img from '../formStyle/icons8-close.svg'
 
 function SignUpForm () {
   const email = useRef()

@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
-import BASE_URL from '../config'
+
+export const BASE_URL = 'http://127.0.0.1:8000/api/'
 
 export function getCsrfCookie () {
   return fetch(BASE_URL + 'auth/get_csrf/')

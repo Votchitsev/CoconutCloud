@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Preloader from '../../preloader/Preloader'
-import { logIn } from '../../../api/requests'
-import Context from '../../../globalState/state'
-import '../signUpForm.css'
-import img from '../icons8-close.svg'
+import Preloader from '../Preloader/Preloader'
+import { logIn } from '../../api/requests'
+import Context from '../../GlobalState/state'
+import '../formStyle/Form.css'
+import img from '../formStyle/icons8-close.svg'
 import Cookies from 'js-cookie'
 
 function SignInForm () {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import FileInput from './FileInput'
-import FileList from './FileList'
-import FileEditPanel from './FileEditPanel'
+import FileInput from './FileEditPanel/FileInput'
+import FileList from './FileList/FileList'
+import FileEditPanel from './FileEditPanel/FileEditPanel'
 import { postFile, getFiles } from '../../api/requests'
 
 function FileStorage () {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import Context from '../../globalState/state'
+import Context from '../../GlobalState/state'
 import { logOut } from '../../api/requests'
 
 function Username ({ username }) {

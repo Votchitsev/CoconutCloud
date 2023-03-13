@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Context from '../../globalState/state'
+import Context from '../../GlobalState/state'
 import './StartPage.css'
 import img from './coconut-tree.svg'
 

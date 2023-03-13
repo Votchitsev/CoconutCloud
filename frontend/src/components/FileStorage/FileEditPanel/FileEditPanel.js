@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import FileRenameForm from '../forms/fileRenameForm/FileRenameForm'
-import DeleteFileSubmitForm from '../forms/submitForm/SubmitForm'
-import GetLinkForm from '../forms/getLinkForm/getLinkForm'
-import { downloadFile, getDownloadLink } from '../../api/requests'
+import FileRenameForm from './FileRenameForm'
+import DeleteFileSubmitForm from './DeleteFileSubmitForm'
+import GetLinkForm from './GetLinkForm'
+import { downloadFile, getDownloadLink } from '../../../api/requests'
 import './FileEditPanel.css'
-import ChangeCommentForm from '../forms/changeCommentForm/changeCommentForm'
-import BASE_URL from '../../config'
+import ChangeCommentForm from './ChangeCommentForm'
+import BASE_URL from '../../../api/requests'
 
 function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
   const [patchForm, setPatchForm] = useState()

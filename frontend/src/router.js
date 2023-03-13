@@ -3,10 +3,10 @@ import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom'
 import StartPage from './components/StartPage/StartPage'
-import Header from './components/header/Header'
-import SignUpForm from './components/forms/signUpForm/SignUpForm'
-import SignInForm from './components/forms/signInForm/SignInForm'
-import AdminPanel from './components/adminPanel/AdminPanel'
+import Header from './components/Header/Header'
+import SignUpForm from './components/AuthForms/SignUpForm'
+import SignInForm from './components/AuthForms/SignInForm'
+import AdminPanel from './components/AdminPanel/AdminPanel'
 import FileStorage from './components/FileStorage/FileStorage'
 import Page404 from './components/Page404/Page404'
 
