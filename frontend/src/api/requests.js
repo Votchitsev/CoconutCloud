@@ -25,7 +25,8 @@ export function logOut (token) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+      cookie: `sessionid=${Cookies.get('sessionid')}`,
     }
   })
 }

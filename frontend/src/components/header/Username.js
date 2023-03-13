@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { logout } from '../../reduxStore/slices/authSlice'
+import Context from '../../globalState/state'
 import { logOut } from '../../api/requests'
 
 function Username ({ username }) {
   const [logoutButton, setLogoutButton] = useState(false)
   const [sendRequest, setSendRequest] = useState(false)
-  const dispatch = useDispatch()
+  const { setSessionId, setUsername } = useContext(Context)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,7 +15,8 @@ function Username ({ username }) {
       const response = await logOut()
 
       if (response.ok) {
-        dispatch(logout())
+        setUsername('')
+        setSessionId('')
 
         navigate('/')
       }

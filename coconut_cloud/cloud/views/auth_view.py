@@ -1,5 +1,5 @@
 import json
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
@@ -39,6 +39,14 @@ def login_view(request):
         "message": "invalid credentials"
         }, status=400
     )
+
+@require_POST
+def logout_view(request):
+    logout(request)
+    
+    return JsonResponse({
+        "message": 'logout',
+    })
 
 
 def me_view(request):
