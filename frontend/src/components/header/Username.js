@@ -1,34 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { logout } from '../../reduxStore/slices/authSlice'
-import { logOut, userMe } from '../../api/requests'
+import { logOut } from '../../api/requests'
 
 function Username ({ username }) {
   const [logoutButton, setLogoutButton] = useState(false)
   const [sendRequest, setSendRequest] = useState(false)
-  const [user, setUsername] = useState(username)
-  const token = useSelector(state => state.auth.authToken)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await userMe(token)
-      const data = await response.json()
-
-      setUsername(data.username)
-    }
-
-    if (token) {
-      fetchData()
-    }
-  }, [])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await logOut(token)
+      const response = await logOut()
 
       if (response.ok) {
         dispatch(logout())
@@ -66,7 +51,7 @@ function Username ({ username }) {
       className='header--logout-btn'
       onMouseEnter={onMouseEnterHandler}
       onMouseLeave={onMouseLeaveHandler}
-      >{ user }</div>
+      >{ username }</div>
   )
 }
 

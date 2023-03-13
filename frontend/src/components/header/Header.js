@@ -1,18 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Username from './Username'
+import Context from '../../globalState/state'
 import './header.css'
 
 function Header () {
-  const isAuth = useSelector(state => state.auth.authToken)
-  const username = useSelector(state => state.auth.username)
+  const { sessionId, username } = useContext(Context)
 
   return (
     <section className="header">
       <div className='header--logo'><Link to='/'>CoconutCloud</Link></div>
       <div className='header--menu-container'>{
-        !isAuth
+        !sessionId
           ? <>
               <div className='header--menu-container--item'><Link to='/sign-in'>Sign in</Link></div>
               <div className='header--menu-container--item'><Link to='/sign-up'>Sign up</Link></div>

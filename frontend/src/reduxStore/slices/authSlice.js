@@ -5,12 +5,13 @@ const authSlice = createSlice(
   {
     name: 'authSlice',
     initialState: {
+      sessionId: null
       // authToken: getDataFromStorage().token ? getDataFromStorage().token : null,
       // username: getDataFromStorage().username ? getDataFromStorage().username : null
     },
     reducers: {
       login (state, action) {
-        state.authToken = action.payload.token
+        state.sessionId = action.payload.token
 
         // addDataToStorage({
         //   token: state.authToken,
@@ -18,14 +19,17 @@ const authSlice = createSlice(
         // })
       },
       logout (state) {
-        state.authToken = null
+        state.sessionId = null
         state.username = null
 
         // removeDataFromStorage()
+      },
+      setSessionId (state, action) {
+        state.sessionId = action.payload
       }
     }
   }
 )
 
-export const { login, logout, getFromCookie } = authSlice.actions
+export const { login, logout, getFromCookie, setSessionId } = authSlice.actions
 export default authSlice.reducer

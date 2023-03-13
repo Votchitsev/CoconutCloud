@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import BASE_URL from '../config'
 
 export function getCsrfCookie () {
-  return fetch(BASE_URL + 'auth/get_csrf')
+  return fetch(BASE_URL + 'auth/get_csrf/')
 }
 
 export function logIn (email, password) {
@@ -30,12 +30,13 @@ export function logOut (token) {
   })
 }
 
-export function userMe (token) {
-  return fetch(BASE_URL + 'auth/users/me/', {
+export function userMe () {
+  return fetch(BASE_URL + 'auth/me/', {
     method: 'GET',
+    Cookie: Cookies,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Token ${token}`
+      cookie: `sessionid=${Cookies.get('sessionid')}`
     }
   })
 }

@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import Preloader from '../../preloader/Preloader'
 import CSRFToken from '../CSRFToken'
-import { login } from '../../../reduxStore/slices/authSlice'
 import { logIn } from '../../../api/requests'
+import Context from '../../../globalState/state'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
+import Cookies from 'js-cookie'
 
 function SignInForm () {
   const email = useRef()
@@ -14,8 +14,9 @@ function SignInForm () {
   const [sendRequest, setSendRequest] = useState(false)
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false)
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const { setSessionId } = useContext(Context)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,11 +32,7 @@ function SignInForm () {
         return
       }
 
-      dispatch(
-        login({
-          token: data.auth_token
-        })
-      )
+      setSessionId(Cookies.get('sessionid'))
 
       navigate('/my-storage/')
 

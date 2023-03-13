@@ -9,14 +9,8 @@ import SignInForm from './components/forms/signInForm/SignInForm'
 import AdminPanel from './components/adminPanel/AdminPanel'
 import FileStorage from './components/FileStorage/FileStorage'
 import Page404 from './components/Page404/Page404'
-import { getCsrfCookie } from './api/requests'
 
 function App () {
-
-  useEffect(() => {
-    getCsrfCookie()
-  }, [])
-
   return (
     <Router>
       <Header />

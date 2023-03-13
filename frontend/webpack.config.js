@@ -17,5 +17,6 @@ module.exports = {
         type: 'asset/resource',
       }
     ]
-  }
+  },
+  watch: true,
 };
