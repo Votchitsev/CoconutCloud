@@ -4,11 +4,11 @@ import { deleteFile } from '../../../api/requests'
 import '../signUpForm.css'
 import img from '../icons8-close.svg'
 
-function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles, setCurrentFile }) {
+function DeleteFileSubmitForm ({ currentFile, setForm, setFiles, setCurrentFile }) {
   const onSubmitHandler = async (e) => {
     e.preventDefault()
 
-    const response = await deleteFile(token, currentFile.id)
+    const response = await deleteFile(currentFile.id)
     const data = await response.json()
 
     if (response.ok) {
@@ -32,7 +32,6 @@ function DeleteFileSubmitForm ({ token, currentFile, setForm, setFiles, setCurre
 }
 
 DeleteFileSubmitForm.propTypes = {
-  token: PropTypes.string,
   currentFile: PropTypes.object,
   setForm: PropTypes.func,
   setFiles: PropTypes.func

@@ -7,12 +7,11 @@ import './AdminPanel.css'
 
 function User ({ id, username, firstName, lastName, email, numOfFiles, size, isStaff, removeItem }) {
   const [sendRequest, setSendRequest] = useState('')
-  const [currentPassword, setCurrentPassword] = useState('')
   const [_isStaff, _setIsStaff] = useState(isStaff)
 
   useEffect(() => {
     const fetchDataDelete = async () => {
-      const response = await deleteUser(token, currentPassword, id)
+      const response = await deleteUser(id)
 
       if (response.ok) {
         removeItem(id)
@@ -20,7 +19,7 @@ function User ({ id, username, firstName, lastName, email, numOfFiles, size, isS
     }
 
     const fetchDataPatch = async () => {
-      await patchUser(token, id, _isStaff)
+      await patchUser(id, _isStaff)
     }
 
     if (sendRequest === 'DELETE') {
@@ -35,10 +34,6 @@ function User ({ id, username, firstName, lastName, email, numOfFiles, size, isS
   }, [sendRequest])
 
   const onClickHandler = (method) => {
-    if (method === 'DELETE') {
-      const currentPassword = prompt('Insert your password')
-      setCurrentPassword(currentPassword)
-    }
     setSendRequest(method)
   }
 
@@ -63,7 +58,7 @@ User.propTypes = {
   lastName: PropTypes.string,
   email: PropTypes.string,
   numOfFiles: PropTypes.number,
-  size: PropTypes.number,
+  size: PropTypes.string,
   isStaff: PropTypes.bool,
   removeItem: PropTypes.func
 }

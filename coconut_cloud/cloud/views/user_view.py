@@ -1,14 +1,14 @@
+from django.http import JsonResponse
+from django.db.models import Sum, Count
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view
-from django.db.models import Sum, Count
 
-from coconut_cloud.cloud.models import User, FileModel
-from coconut_cloud.cloud.serializers.user_serializer import RegistrUserSerializer, UserSerializer
+from coconut_cloud.cloud.models import User
+from coconut_cloud.cloud.serializers.user_serializer import RegistrUserSerializer
 
 
 class RegistrUserView(CreateAPIView):
@@ -46,3 +46,20 @@ def get_detail_user_list(request):
         return Response(result, status=status.HTTP_200_OK)
 
     return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def delete_user(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    if user:
+        user.delete()
+
+        return JsonResponse({
+            "message": "success",
+        })
+    
+    return JsonResponse({
+        "message": 'User not found',
+    }, status=404)

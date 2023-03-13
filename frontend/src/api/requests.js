@@ -51,15 +51,14 @@ export function getUserList () {
   })
 }
 
-export function deleteUser (password, id) {
-  return fetch(BASE_URL + `auth/users/${id}/`, {
+export function deleteUser (id) {
+  return fetch(BASE_URL + `delete_user/${id}/`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+      cookie: `sessionid=${Cookies.get('sessionid')}`,
     },
-    body: JSON.stringify({
-      current_password: password
-    })
   })
 }
 
@@ -68,6 +67,8 @@ export function patchUser (id, isStaff) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'X-CSRFToken' : Cookies.get('csrftoken'),
+      cookie: `sessionid=${Cookies.get('sessionid')}`,
     },
     body: JSON.stringify({
       is_staff: isStaff

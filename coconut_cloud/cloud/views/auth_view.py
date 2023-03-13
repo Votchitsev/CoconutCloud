@@ -3,9 +3,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import JsonResponse
-from rest_framework.views import APIView
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.response import Response
 
 
 @ensure_csrf_cookie
@@ -53,5 +50,6 @@ def me_view(request):
     data = request.user
 
     return JsonResponse({
-        "username": data.username
+        "username": data.username,
+        "isAdmin": data.is_staff,
     })

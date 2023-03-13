@@ -5,4 +5,6 @@ export default createContext({
   'setSessionId': () => {},
   'username': String(),
   'setUsername': () => {},
+  'isAdmin': Boolean(),
+  'setIsAdmin': () => {},
 });

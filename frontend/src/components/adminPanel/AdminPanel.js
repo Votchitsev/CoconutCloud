@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { userMe } from '../../api/requests'
 import UsersList from './UsersList'
 import './AdminPanel.css'
 import Preloader from '../preloader/Preloader'
+import Context from '../../globalState/state'
 
 function AdminPanel () {
-  const [access, setAccess] = useState(false)
+  const { isAdmin } = useContext(Context);
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
-      const response = await userMe(token)
+      const response = await userMe()
       const data = await response.json()
 
       if (data.is_staff) {
@@ -27,7 +28,7 @@ function AdminPanel () {
   return (
     isLoading
       ? <Preloader />
-      : !access
+      : !isAdmin
           ? <div className='admin-panel--access-denied'>
               <span className='content'>{'You do not have access to the administration panel :('}</span>
             </div>

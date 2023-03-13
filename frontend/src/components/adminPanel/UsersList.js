@@ -8,7 +8,7 @@ function UsersList () {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getUserList(token)
+      const response = await getUserList()
       const data = await response.json()
 
       if (response.ok) {

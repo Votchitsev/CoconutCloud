@@ -7,10 +7,11 @@ import { getCsrfCookie } from '../api/requests'
 export default function ContextProvider({ children }) {
   const [sessionId, setSessionId] = useState()
   const [username, setUsername] = useState()
+  const [isAdmin, setIsAdmin] = useState()
 
   useEffect(() => {
     setSessionId(Cookies.get('sessionid'));
-    getUsername();  
+    getUserData();  
   }, [sessionId])
 
   useEffect(() => {
@@ -23,14 +24,15 @@ export default function ContextProvider({ children }) {
     }
   }, [])
 
-  const getUsername = async () => {
+  const getUserData = async () => {
     const response = await userMe();
     const data = await response.json();
     setUsername(data.username);
+    setIsAdmin(data.isAdmin);
   }
 
   return (
-    <Context.Provider value={{ sessionId, setSessionId, username, setUsername }}>
+    <Context.Provider value={{ sessionId, setSessionId, username, setUsername, isAdmin }}>
       { children }
     </Context.Provider>
   )
