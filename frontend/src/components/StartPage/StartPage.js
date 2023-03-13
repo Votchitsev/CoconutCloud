@@ -16,7 +16,7 @@ function StartPage () {
     if (sessionId) {
       navigate('/my-storage/')
     }
-  }, [])
+  }, [sessionId])
 
   return (
     !sessionId

@@ -6,7 +6,7 @@ import GetLinkForm from './GetLinkForm'
 import { downloadFile, getDownloadLink } from '../../../api/requests'
 import './FileEditPanel.css'
 import ChangeCommentForm from './ChangeCommentForm'
-import BASE_URL from '../../../api/requests'
+import { BASE_URL } from '../../../api/requests'
 
 function FileEditPanel ({ currentFile, setCurrentFile, setFiles }) {
   const [patchForm, setPatchForm] = useState()
