@@ -29,9 +29,13 @@ function FileDescription({
 
 FileDescription.propTypes = {
   upload: PropTypes.string.isRequired,
-  download: PropTypes.string.isRequired,
+  download: PropTypes.string,
   size: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
+};
+
+FileDescription.defaultProps = {
+  download: '-',
 };
 
 export default FileDescription;

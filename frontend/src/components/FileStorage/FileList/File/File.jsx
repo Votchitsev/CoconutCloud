@@ -63,13 +63,14 @@ File.propTypes = {
   comment: PropTypes.string.isRequired,
   size: PropTypes.number.isRequired,
   upload: PropTypes.string.isRequired,
-  download: PropTypes.string.isRequired,
+  download: PropTypes.string,
   currentFile: PropTypes.instanceOf(Object),
   setCurrentFile: PropTypes.func.isRequired,
 };
 
 File.defaultProps = {
   currentFile: undefined,
+  download: '-',
 };
 
 export default File;
