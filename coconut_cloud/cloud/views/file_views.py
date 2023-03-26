@@ -7,6 +7,7 @@ from datetime import date
 
 from coconut_cloud.cloud.serializers.file_serializer import FileSerializer
 from coconut_cloud.cloud.models import FileModel
+from ..models import file_system
 
 
 class FileView(APIView):
@@ -79,10 +80,12 @@ class FileView(APIView):
             deleted_file = FileModel.objects.filter(user_id=request.user.id).all().filter(id=int(request.query_params['id'])).first()
 
         if deleted_file:
+            file_system.delete(deleted_file.storage_file_name)
+
             deleted_file.delete()
 
             data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
-        
+       
             return Response(data, status.HTTP_200_OK)
 
         data = {
