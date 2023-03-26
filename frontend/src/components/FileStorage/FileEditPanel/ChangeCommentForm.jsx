@@ -32,10 +32,10 @@ function ChangeCommentForm({ currentFile, setForm, setFiles }) {
 
   return (
     <form className="form" onSubmit={onSubmitHandler}>
-      <h2 className="form-title">Rename file</h2>
+      <h2 className="form-title">Change comment</h2>
       <textarea type="text" placeholder="New comment" ref={newComment} />
       <input type="submit" value="OK" required />
-      <button className="close" onClick={() => {}} onKeyDown={onCloseHandler} type="button" aria-label="Close"><img src={img} alt="Close" /></button>
+      <button className="close" onClick={onCloseHandler} onKeyDown={onCloseHandler} type="button" aria-label="Close"><img src={img} alt="Close" /></button>
     </form>
   );
 }
