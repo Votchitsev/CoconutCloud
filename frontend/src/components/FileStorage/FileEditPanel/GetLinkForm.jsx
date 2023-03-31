@@ -11,7 +11,7 @@ function GetLinkForm({ link, setForm }) {
   return (
     <form className="form">
       <h2 className="form--title">Download link</h2>
-      <input type="text" value={link} />
+      <input type="text" readOnly value={link} />
       <button className="close" onClick={onCloseHandler} aria-label="Close" type="button"><img src={img} alt="close" /></button>
     </form>
   );

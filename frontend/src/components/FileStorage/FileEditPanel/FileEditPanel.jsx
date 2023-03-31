@@ -87,7 +87,7 @@ function FileEditPanel({ currentFile, setCurrentFile, setFiles }) {
           />
         )
         : null }
-      { patchForm === 'getLink'
+      { patchForm === 'getLink' && downloadLink
         ? (
           <GetLinkForm
             link={downloadLink}
