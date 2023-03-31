@@ -50,7 +50,10 @@ class FileSerializer(serializers.ModelSerializer):
 
         validated_data = patchValidator(self.initial_data)
 
-        file = FileModel.objects.filter(user_id=kwargs['user_id']).all().filter(id=validated_data['id']).first()           
+        if kwargs['user'].is_staff:
+            file = FileModel.objects.filter(id=validated_data['id']).first()
+        else:
+            file = FileModel.objects.filter(user_id=kwargs['user'].id).filter(id=validated_data['id']).first()
 
         if file:
             file.native_file_name = validated_data['native_file_name']

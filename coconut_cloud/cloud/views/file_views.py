@@ -62,8 +62,8 @@ class FileView(APIView):
 
         if serializer.is_valid():
             serializer.patch(
-                user_id=request.user.id,
-                )
+                user=request.user,
+            )
 
             data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
 
