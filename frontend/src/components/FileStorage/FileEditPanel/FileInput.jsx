@@ -12,9 +12,9 @@ function FileInput({ sendFile }) {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-
-    setFileChosen();
     sendFile(fileChosen.item(0));
+    setFileChosen();
+    file.current.value = '';
   };
 
   return (
@@ -24,7 +24,6 @@ function FileInput({ sendFile }) {
           Add file
           <input type="file" id="input_file" ref={file} onChange={onChangeHandler} />
         </label>
-        {/* <span>Add file</span> */}
         { fileChosen && fileChosen.length
           ? <span className="preview">{ fileChosen.item(0).name }</span>
           : null }
