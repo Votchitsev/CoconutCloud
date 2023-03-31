@@ -65,3 +65,16 @@ button {
   border: none;
   background-color: #f4e5cd;
 }
+
+.to-storage-btn {
+  background-color: #ff5600;
+  color: #f4e5cd;
+  height: 2em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.to-storage-btn:hover {
+  background-color: #cd4400;
+  transition: all 500ms;
+}

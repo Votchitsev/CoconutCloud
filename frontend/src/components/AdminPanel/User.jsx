@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import IsStaffBtn from './IsStaffButton';
+import ToStorageBtn from './ToStorageBtn';
 import { deleteUser, patchUser } from '../../api/requests';
 import img from '../formStyle/icons8-close.svg';
 import './AdminPanel.css';
@@ -49,6 +50,9 @@ function User({
       <td>{ size }</td>
       <td>
         <IsStaffBtn isStaff={_isStaff} setIsStaff={_setIsStaff} onClickHandler={onClickHandler} />
+      </td>
+      <td>
+        <ToStorageBtn />
       </td>
       <td>
         <button onClick={() => onClickHandler('DELETE')} onKeyDown={() => onClickHandler('DELETE')} type="button" aria-label="Delete">
