@@ -9,7 +9,7 @@ from coconut_cloud.cloud.validators import patchValidator
 
 class FileSerializer(serializers.ModelSerializer):
 
-    file = serializers.FileField(allow_empty_file=True)
+    file = serializers.FileField(allow_empty_file=True, required=False)
 
     class Meta:
         model = FileModel
