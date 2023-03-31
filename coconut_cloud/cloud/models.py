@@ -62,7 +62,4 @@ class FileModel(models.Model):
     comment = models.TextField(max_length=100, null=True, blank=True)
     public_download_id = models.CharField(unique=True, max_length=50)
     file = models.FileField(storage=file_system, blank=True)
-
-    class Meta:
-        unique_together = ('user_id', 'native_file_name')
-        
+    
