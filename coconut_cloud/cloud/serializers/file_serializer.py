@@ -9,6 +9,8 @@ from coconut_cloud.cloud.validators import patchValidator
 
 class FileSerializer(serializers.ModelSerializer):
 
+    file = serializers.FileField(allow_empty_file=True)
+
     class Meta:
         model = FileModel
         fields = ['file', 'comment']
