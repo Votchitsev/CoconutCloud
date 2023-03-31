@@ -14,16 +14,22 @@ class FileView(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        if self.request.user.is_staff:
-            return FileModel.objects.all()
+    def get_queryset(self, user_id=None):
+
+        if self.request.user.is_staff and user_id:
+            return FileModel.objects.filter(user=user_id).all()
 
         return FileModel.objects.filter(user=self.request.user.id).all()
 
     def get(self, request):
 
         if 'id' not in request.query_params:
-            files = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            user_id = None
+
+            if 'user_id' in request.query_params:
+                user_id = request.query_params['user_id']
+
+            files = self.get_queryset(user_id).values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
             return Response(files)
         
         file = self.get_queryset().filter(id = request.query_params['id']).first()

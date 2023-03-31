@@ -107,6 +107,15 @@ export function getFiles() {
   });
 }
 
+export function getUserFiles(userId) {
+  return fetch(`${BASE_URL}files/?user_id=${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
 export function patchFile(data) {
   return fetch(`${BASE_URL}files/`, {
     method: 'PATCH',

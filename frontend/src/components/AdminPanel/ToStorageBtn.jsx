@@ -1,16 +1,26 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-function ToStorageBtn() {
-  const navigate = useNavigate();
-
-  const onClickHandler = () => {
-    navigate('/my-storage/');
-  };
-
+function ToStorageBtn({ userId }) {
   return (
-    <button type="button" className="to-storage-btn" onClick={onClickHandler}>to storage</button>
+    <Link
+      to={{
+        pathname: '/my-storage',
+      }}
+      state={{
+        userId,
+      }}
+      className="to-storage-btn"
+    >
+      to storage
+
+    </Link>
   );
 }
+
+ToStorageBtn.propTypes = {
+  userId: PropTypes.number.isRequired,
+};
 
 export default ToStorageBtn;

@@ -52,7 +52,7 @@ function User({
         <IsStaffBtn isStaff={_isStaff} setIsStaff={_setIsStaff} onClickHandler={onClickHandler} />
       </td>
       <td>
-        <ToStorageBtn />
+        <ToStorageBtn userId={id} />
       </td>
       <td>
         <button onClick={() => onClickHandler('DELETE')} onKeyDown={() => onClickHandler('DELETE')} type="button" aria-label="Delete">
