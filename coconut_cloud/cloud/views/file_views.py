@@ -104,16 +104,42 @@ class FileView(APIView):
 
     def delete(self, request):
         if request.user.is_staff:
-            deleted_file = FileModel.objects.filter(id=int(request.query_params['id'])).first()
+            deleted_file = FileModel.objects.filter(
+                id=int(request.query_params['id'])
+            ).first()
         else:
-            deleted_file = FileModel.objects.filter(user_id=request.user.id).all().filter(id=int(request.query_params['id'])).first()
+            deleted_file = FileModel.objects.filter(
+                user_id=request.user.id
+            ).all().filter(
+                id=int(request.query_params['id'])
+            ).first()
 
         if deleted_file:
             file_system.delete(deleted_file.storage_file_name)
 
             deleted_file.delete()
 
-            data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            user = request.user
+
+            if 'user_storage_id' in request.query_params and user.is_staff:
+                data = self.get_queryset(
+                    user_id=request.query_params['user_storage_id']
+                ).values(
+                    'id',
+                    'user__username',
+                    'size', 'native_file_name',
+                    'upload_date', 'last_download_date',
+                    'comment',
+                )
+            else:
+                data = self.get_queryset().values(
+                    'id',
+                    'user__username',
+                    'size', 'native_file_name',
+                    'upload_date',
+                    'last_download_date',
+                    'comment',
+                )
        
             return Response(data, status.HTTP_200_OK)
 

@@ -134,8 +134,14 @@ export function patchFile(data, userStorageId = null) {
   });
 }
 
-export function deleteFile(id) {
-  return fetch(`${BASE_URL}files/?id=${id}`, {
+export function deleteFile(id, userStorageId = null) {
+  let params = '';
+
+  if (userStorageId) {
+    params = `&user_storage_id=${userStorageId}`;
+  }
+
+  return fetch(`${BASE_URL}files/?id=${id}${params}`, {
     method: 'DELETE',
     headers: {
       'X-CSRFToken': Cookies.get('csrftoken'),
