@@ -7,4 +7,6 @@ export default createContext({
   setUsername: () => {},
   isAdmin: Boolean(),
   setIsAdmin: () => {},
+  currentStorageUser: Number(),
+  setCurrentStorageUser: () => {},
 });

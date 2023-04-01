@@ -8,6 +8,7 @@ export default function ContextProvider({ children }) {
   const [sessionId, setSessionId] = useState();
   const [username, setUsername] = useState();
   const [isAdmin, setIsAdmin] = useState();
+  const [currentStorageUser, setCurrentStorageUser] = useState();
 
   const getUserData = async () => {
     const response = await userMe();
@@ -37,6 +38,8 @@ export default function ContextProvider({ children }) {
     username,
     setUsername,
     isAdmin,
+    currentStorageUser,
+    setCurrentStorageUser,
   }));
 
   return (

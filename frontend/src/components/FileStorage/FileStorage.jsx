@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
 import FileInput from './FileEditPanel/FileInput';
 import FileList from './FileList/FileList';
 import FileEditPanel from './FileEditPanel/FileEditPanel';
 import { postFile, getFiles, getUserFiles } from '../../api/requests';
+import state from '../../GlobalState/state';
 
 function FileStorage() {
   const [currentFile, setCurrentFile] = useState();
   const [files, setFiles] = useState([]);
-  const { state } = useLocation();
+  const { currentStorageUser: currentStorageUserId } = useContext(state);
 
   useEffect(() => {
     const fetchData = async () => {
       let response;
 
-      if (state && state.userId) {
-        response = await getUserFiles(state.userId);
+      if (currentStorageUserId) {
+        response = await getUserFiles(currentStorageUserId);
       } else {
         response = await getFiles();
       }

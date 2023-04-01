@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import state from '../../GlobalState/state';
 
 function ToStorageBtn({ userId }) {
+  const { setCurrentStorageUser } = useContext(state);
+
+  const onClickHandler = () => {
+    setCurrentStorageUser(userId);
+  };
+
   return (
     <Link
       to={{
         pathname: '/my-storage',
       }}
-      state={{
-        userId,
-      }}
+      onClick={onClickHandler}
       className="to-storage-btn"
     >
       to storage

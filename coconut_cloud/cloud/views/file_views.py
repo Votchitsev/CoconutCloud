@@ -67,11 +67,34 @@ class FileView(APIView):
         data = {}
 
         if serializer.is_valid():
+            user = request.user
+
             serializer.patch(
-                user=request.user,
+                user=user,
             )
 
-            data = self.get_queryset().values('id', 'user__username', 'size', 'native_file_name', 'upload_date', 'last_download_date', 'comment')
+            if 'user_storage_id' in request.query_params and user.is_staff:
+                data = self.get_queryset(
+                    user_id=request.query_params['user_storage_id']
+                ).values(
+                    'id',
+                    'user__username',
+                    'size',
+                    'native_file_name',
+                    'upload_date',
+                    'last_download_date',
+                    'comment',
+                )
+            else:
+                data = self.get_queryset().values(
+                    'id',
+                    'user__username',
+                    'size',
+                    'native_file_name',
+                    'upload_date',
+                    'last_download_date',
+                    'comment'
+                )
 
             return Response(data)
 

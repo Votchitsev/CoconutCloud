@@ -116,8 +116,14 @@ export function getUserFiles(userId) {
   });
 }
 
-export function patchFile(data) {
-  return fetch(`${BASE_URL}files/`, {
+export function patchFile(data, userStorageId = null) {
+  let params = '';
+
+  if (userStorageId) {
+    params = `?user_storage_id=${userStorageId}`;
+  }
+
+  return fetch(`${BASE_URL}files/${params}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
