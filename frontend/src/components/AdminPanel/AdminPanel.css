@@ -72,6 +72,11 @@ button {
   height: 2em;
   border-radius: 5px;
   cursor: pointer;
+  display: flex;
+  font-size: 0.8em;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 2px;
 }
 
 .to-storage-btn:hover {
