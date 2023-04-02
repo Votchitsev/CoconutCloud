@@ -44,7 +44,7 @@ function DeleteFileSubmitForm({
       <input type="submit" value="Yes" required />
       <button
         className="close"
-        onClick={() => {}}
+        onClick={onCloseHandler}
         onKeyDown={onCloseHandler}
         type="button"
         aria-label="Close"
@@ -56,7 +56,7 @@ function DeleteFileSubmitForm({
       </button>
       <div
         className="no"
-        onClick={() => {}}
+        onClick={onCloseHandler}
         onKeyDown={onCloseHandler}
         role="button"
         tabIndex={0}
